@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import auth from "../firebase.init";
 import {
   useCreateUserWithEmailAndPassword,
+  useSendEmailVerification,
   useSignInWithGoogle,
+  useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -21,11 +23,14 @@ const Signup = () => {
     useCreateUserWithEmailAndPassword(auth);
   const navigate = useNavigate();
   const [myError, setMyError] = useState("");
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+  const [sendEmailVerification, sending, verifyError] = useSendEmailVerification(auth);
+
 
   // if (gError || error) {
   //   console.log(gError?.message || error?.message);
   // }
-  if (loading || gLoading) {
+  if (loading || gLoading|| updating||sending) {
     <p>Loading...</p>;
   }
 
@@ -40,11 +45,23 @@ const Signup = () => {
           break;
       }
     }
+    if(updateError){
+      console.log(updateError.message);
+      
+    }
+    console.log(user);
+   
   }, [user, error]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     setEmail(data.email);
-    createUserWithEmailAndPassword(data.email, data.password);
+    const name=data.name;
+    await createUserWithEmailAndPassword(data.email, data.password);
+    await updateProfile({ displayName: data.name });
+    await sendEmailVerification
+    alert('Updated profile');
+    console.log(data.name);
+    
   };
 
   const handleGoogle = () => {

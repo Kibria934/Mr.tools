@@ -37,10 +37,10 @@ const Tools = () => {
               <div className="card-body py-1">
               <p className="text-2xl font-bold">{tool.name}</p>
               <p>Price:{tool.price}<small>p/c</small></p>
-              <p className="bg-success py-2 px-1 rounded-lg">MinQuantity:{tool.minOrQuantity}</p>
+              <p className="">MinQuantity:{tool.minOrQuantity}</p>
               <p>Available Quantity:{tool.availableQuantity}</p>
-              <p>{tool.desc}</p>
-              <Link to={`/purchase/${tool._id}`} className="btn btn-outline btn-secondary">BOOK NOW</Link>
+              <p>{tool.desc.slice(0,150)}</p>
+              <Link to={`/purchase/${tool._id}`} className="btn btn-outline btn-primary">BOOK NOW</Link>
               </div>
             </div>
            </div>

@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { async } from "@firebase/util";
 import toast from "react-hot-toast";
+import PurchaseModal from "./PurchaseModal";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const Purchase = () => {
+  const [user, loading, Autherror] = useAuthState(auth);
   const { id } = useParams();
-  console.log(id);
+
   const {
     isLoading,
     error,
@@ -16,124 +20,197 @@ const Purchase = () => {
   } = useQuery("singleData", () =>
     fetch(`http://localhost:5000/get-tools/${id}`).then((res) => res.json())
   );
+  const num = singleData?.minOrQuantity;
+  const [tools, setTools] = useState(null);
+  const [count, setCount] = useState(num);
+  const [disabled, setDisabled] = useState(false);
 
-  const { tools, setTools } = useState({});
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-  const { name, img, desc, minOrQuantity, price, availableQuantity } =
-    singleData;
+  useEffect(() => {
+    setCount(num);
+    refetch()
+  }, [singleData,refetch]);
 
   const handleIncrease = (e) => {
-    e.preventDefault();
-    const count = e.target.quantity.value;
-    const number = +count;
-    if (count < 0) {
-      toast.error("Please enter valid number");
-      e.target.reset();
-    }
-    if (count > +availableQuantity - count) {
-      toast.error(`We have not more than ${availableQuantity} products`);
-      e.target.reset();
-    }
-    if (count > 0 && count < +availableQuantity - count) {
-      axios
-        .put(`http://localhost:5000/update-tools/${id}`, {
-          quantity: +minOrQuantity + number,
-        })
-        .then((data) => {
-          console.log(data);
-          refetch();
-        });
-      console.log(+availableQuantity - count);
-    }
-    e.target.reset();
-  };
-  const handleDecrease = () => {
-    if (minOrQuantity <= 0) {
-      toast.error("You have no products to remove");
-    }
-    if (minOrQuantity > 0) {
-      axios
-        .put(`http://localhost:5000/update-tools/${id}`, {
-          quantity: minOrQuantity - 1,
-        })
-        .then((data) => {
-          console.log(data);
-          refetch();
-        });
-    }
+      setCount(+count + 1);
+      if(count > singleData?.availableQuantity ){
+      return toast.error('enter valid number')
+      }
   };
 
+  const handleDicrease = (e) => {
+    setCount(count - 1);
+    if (count <= num) {
+      return toast.error("Please Enter minimum number");
+    }
+  };
+  const handleModal = () => {
+    setTools(singleData);
+  };
   console.log(singleData);
+  // refetch()
 
   return (
-    <div className=" p-16 bg-emerald-100 lg:p-0">
+    <div className="p-16 bg-emerald-100 lg:p-0">
       <div>
         <div class="card mt-20 w-full ">
           <figure>
-            <img width={"800px"} src={singleData.img} alt="car!" />
+            <img width={"800px"} src={singleData?.img} alt="car!" />
           </figure>
           <div className="mt-8 mx-auto max-w-[60vw]">
             <div>
               <div>
-                <h1 className="text-center text-xl font-semibold">
-                  <span className="bg-gray-400 p-5">Quantity of</span>
-                  <span className="p-5 bg-orange-400">
-                    Products:{" "}
-                    <strong className="text-primary ">{minOrQuantity}</strong>{" "}
-                  </span>
-                </h1>
-                <div className="flex flex-row justify-around mt-10">
-                  <form onSubmit={handleIncrease}>
-                    <input
-                      type="number"
-                      className="input text-lg input-border px-3 input-primary"
-                      name="quantity"
-                      placeholder="Add quantity"
-                    />
-                    <button
-                      title="Add more products"
-                      className="btn btn-outline btn-secondary"
-                      type=""
-                    >
-                      Increase
-                    </button>
-                  </form>
-                  <div>
-                    <button
-                      onClick={handleDecrease}
-                      title="Remove products"
-                      className="btn btn-outline btn-neutral"
-                      type=""
-                    >
-                      Decrease
-                    </button>
+                <div>
+                  <div className="flex flex-row justify-center mt-10">
+                    <div>
+                      <button
+                        title="Remove products"
+                        className={
+                          count < num
+                            ? `btn btn-disabled btn-outline  text-3xl text-extrabold btn-neutral`
+                            : `btn btn-outline text-3xl text-extrabold btn-neutral`
+                        }
+                        type=""
+                        onClick={handleDicrease}
+                      >
+                      -
+                      </button>
+                    </div>
+                    <p className="text-2xl mx-5 mt-2 font-bold ">{count}</p>
+
+                    <div>
+                      <button
+                        title="Add more products"
+                        className={`btn btn-outline btn-secondary`}
+                        type=""
+                        
+                        onClick={handleIncrease}
+                      >
+                       +
+                      </button>
+                    </div>
+                    <div>
+                      <input
+                        type="number"
+                        className="input mx-2 text-lg input-border px-3 w-28 input-primary"
+                        name="quantity"
+                        placeholder="Add quantity"
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          setCount(+value);
+                          refetch()
+                        }}
+                      />
+                    </div>
                   </div>
+
                 </div>
               </div>
             </div>
             <div className=" flex mt-10 text-lg text-primary flex-col justify-around ">
               <div className="">
-                <h2 className="text-4xl">{name}</h2>
+                <h2 className="text-4xl">{singleData?.name}</h2>
+                <h2 className="text-2xl mt-2">Price: {singleData?.price} <small>pc</small></h2>
                 <h3 className="text-2xl">
-                  Available Stock: {availableQuantity}
-                  <small>ps</small>
+                  Available Stock: {singleData?.availableQuantity}
                 </h3>
-                <h3>Description:{desc}</h3>
+                <h3 className="text-2xl">
+                  Minimum order quantity: {singleData?.minOrQuantity}
+                </h3>
+                <p>{singleData?.desc}</p>
               </div>
               <div className="flex justify-center">
-                <button class="btn my-6 w-96 text-white btn-primary">
+                <label
+                  htmlFor="purchase-modal"
+                  className="btn btn-primary px-10 text-uppercase text-white font-bold bg-gradient-to-r from-primary to-secondary"
+                  onClick={handleModal}
+                  class={
+                    count < num|| count>singleData?.availableQuantity
+                      ? `btn my-6 btn-disabled w-96 text-white btn-primary`
+                      : `btn my-6 w-96 text-white btn-primary`
+                  }
+                >
                   Purchase
-                </button>
+                </label>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {tools && (
+        <PurchaseModal
+          user={user}
+          setTools={setTools}
+          tools={tools}
+          totalQuantity={count}
+        ></PurchaseModal>
+      )}
     </div>
   );
 };
 
 export default Purchase;
+// const [disabled, setDisabled] = useState(false);
+
+// const { name, img, desc, minOrQuantity, price, availableQuantity } =
+//   singleData;
+// const counter = { ...singleData };
+
+// const add = () => {
+//   console.log(counter);
+//   setCount(counter.minOrQuantity-1);
+//   // refetch()
+// };
+
+// const handleIncrease = (e) => {
+//   e.preventDefault()
+
+//   const count = e.target.quantity.value;
+//   console.log(count);
+
+// const number = +count;
+// if (count < 0) {
+//   toast.error("Please enter valid number");
+//   e.target.reset();
+// }
+// if (
+//   count >= +availableQuantity - count ||
+//   +minOrQuantity + number > availableQuantity
+// ) {
+//   toast.error(`We have not more than ${availableQuantity} products`);
+//   setDisabled(true)
+//   e.target.reset();
+// }
+// if (
+//   count > 0
+//   // count < +availableQuantity - count &&
+//   // counter?+minOrQuantity + number <= availableQuantity
+// ) {
+//   setDisabled(false)
+//   axios
+//     .put(`http://localhost:5000/update-tools/${id}`, {
+//       quantity: +minOrQuantity + number,
+//     })
+//     .then((data) => {
+//       console.log(data);
+//       refetch();
+//     });
+//   console.log(+availableQuantity - count);
+// }
+// e.target.reset();
+// };
+// const handleDecrease = () => {
+//   if (minOrQuantity <= 0) {
+//     toast.error("You have no products to remove");
+//   }
+//   if (minOrQuantity > 0) {
+//     axios
+//       .put(`http://localhost:5000/update-tools/${id}`, {
+//         quantity: minOrQuantity - 1,
+//       })
+//       .then((data) => {
+//         console.log(data);
+//         refetch();
+//       });
+//   console.log('helk');
+//   }
+// };

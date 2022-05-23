@@ -14,9 +14,9 @@ import MyOrder from "./Pages/DashboardPage/MyOrder";
 import MyProfile from "./Pages/DashboardPage/MyProfile";
 import Home from "./Pages/HomePage/Home";
 import Portfolio from "./Pages/MyPortfolio/Portfolio";
-import Tools from "./Pages/Tools/Tools";
+// import Tools from "./Pages/Tools/Tools";
 import Navbar from "./SharedPage/Navbar";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import Purchase from "./Pages/ParchasePage/Purchase";
 
 function App() {
@@ -26,11 +26,18 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/portfolio" element={<Portfolio />}></Route>
-        <Route path="/tools" element={<Tools />}></Route>
+        {/* <Route path="/tools" element={<Tools />}></Route> */}
         <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/purchase/:id" element={<Purchase />}></Route>
+        <Route
+          path="/purchase/:id"
+          element={
+            <RequireAuth>
+              <Purchase />
+            </RequireAuth>
+          }
+        ></Route>
         <Route
           path="/dashboard"
           element={
@@ -42,14 +49,14 @@ function App() {
           {/* --------- nasted route----------- */}
           <Route path="myProfile" element={<MyProfile />}></Route>
           <Route path="myOrders" element={<MyOrder />}></Route>
-          <Route path="myReview" element={<AddReview/>}></Route>
+          <Route path="myReview" element={<AddReview />}></Route>
           <Route path="addProduct" element={<AddProduct />}></Route>
           <Route path="makeAdmin" element={<MakeAdmin />}></Route>
           <Route path="manageProducts" element={<ManageProducts />}></Route>
           <Route path="manageAllOrders" element={<MangeAllOrders />}></Route>
         </Route>
       </Routes>
-      <Toaster />
+      <Toaster id={"text"}/>
     </Navbar>
   );
 }

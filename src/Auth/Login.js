@@ -6,7 +6,7 @@ import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,24 +18,33 @@ const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
-    const [myError,setMyError]=useState('');
-    
-    useEffect(() => {
-      if (error) {
-        switch (error.code) {
-          case "auth/user-not-found":
-            setMyError("Your have no account.Please crate an account first");
-            break;
-          case "auth/wrong-password":
-            setMyError("Your have no account.Please crate an account first");
-            break;
-          default:setMyError(error.code)
-            break;
-        }
-      }
-      setMyError(gError?.message|| error?.message)
+  const [myError, setMyError] = useState("");
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || '/';
+  console.log(from);
+  
 
-    }, [user, error]);
+  useEffect(() => {
+    if (error) {
+      switch (error.code) {
+        case "auth/user-not-found":
+          setMyError("Your have no account.Please crate an account first");
+          break;
+        case "auth/wrong-password":
+          setMyError("Your have no account.Please crate an account first");
+          break;
+        default:
+          setMyError(error.code);
+          break;
+      }
+    }
+    setMyError(gError?.message || error?.message);
+    if (user||gUser) {
+      navigate(from, { replace: true });
+    }
+  }, [user, error,gUser]);
+
   if (loading || gLoading) {
     <p>Loading...</p>;
   }
@@ -108,14 +117,15 @@ const Login = () => {
                 </label>
               )}
             </div>
-            {
-             <p>{myError}</p>
-            }
+            {<p>{myError}</p>}
             <button type="submit" class="btn mt-5 w-full btn-primary">
               Login
             </button>
             <p>
-              Are new in Mr.tools? <Link className="btn-link" to={'/signup'}>Create an account</Link>
+              Are new in Mr.tools?{" "}
+              <Link className="btn-link" to={"/signup"}>
+                Create an account
+              </Link>
             </p>
           </form>
           <div className="divider">OR</div>
