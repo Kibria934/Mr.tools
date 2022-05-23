@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./Auth/Login";
 import RequireAdmin from "./Auth/RequireAdmin";
 import RequireAuth from "./Auth/RequireAuth";
+import Signup from "./Auth/Signup";
 import Blogs from "./Pages/BlogPage/Blogs";
 import AddReview from "./Pages/DashboardPage/AddReview";
 import AddProduct from "./Pages/DashboardPage/Admin/AddProduct";
@@ -15,6 +16,8 @@ import Home from "./Pages/HomePage/Home";
 import Portfolio from "./Pages/MyPortfolio/Portfolio";
 import Tools from "./Pages/Tools/Tools";
 import Navbar from "./SharedPage/Navbar";
+import toast, { Toaster } from 'react-hot-toast';
+import Purchase from "./Pages/ParchasePage/Purchase";
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
         <Route path="/tools" element={<Tools />}></Route>
         <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/purchase" element={<Purchase />}></Route>
         <Route
           path="/dashboard"
           element={
@@ -34,6 +39,7 @@ function App() {
             </RequireAuth>
           }
         >
+          {/* --------- nasted route----------- */}
           <Route path="myProfile" element={<MyProfile />}></Route>
           <Route path="myOrders" element={<MyOrder />}></Route>
           <Route path="myReview" element={<AddReview/>}></Route>
@@ -43,6 +49,7 @@ function App() {
           <Route path="manageAllOrders" element={<MangeAllOrders />}></Route>
         </Route>
       </Routes>
+      <Toaster />
     </Navbar>
   );
 }

@@ -1,9 +1,11 @@
+import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink } from "react-router-dom";
+import auth from "../firebase.init";
 
 const Navbar = ({ children }) => {
-  //   const [user, loading, error] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
   return (
     <div className="drawer drawer-end ">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -66,6 +68,11 @@ const Navbar = ({ children }) => {
                 </NavLink>
               </li>
               <li>
+                <NavLink className="rounded-lg" to={"/purchase"}>
+                  Purchase
+                </NavLink>
+              </li>
+              <li>
                 <NavLink className="rounded-lg" to={"/tools"}>
                   Tools
                 </NavLink>
@@ -76,9 +83,15 @@ const Navbar = ({ children }) => {
                 </NavLink>
               </li>
               <li>
-                <NavLink className="rounded-lg" to={"/login"}>
-                  Login
-                </NavLink>
+                {user ? (
+                  <span onClick={() => signOut(auth)} className="rounded-lg">
+                    Signout
+                  </span>
+                ) : (
+                  <NavLink className="rounded-lg" to={"/login"}>
+                    Login
+                  </NavLink>
+                )}
               </li>
               <li>
                 <Link className="rounded-lg" to={"/dashboard"}>
@@ -105,6 +118,11 @@ const Navbar = ({ children }) => {
             </NavLink>
           </li>
           <li>
+            <NavLink className="rounded-lg" to={"/purchase"}>
+              Purchase
+            </NavLink>
+          </li>
+          <li>
             <NavLink className="rounded-lg" to={"/tools"}>
               Tools
             </NavLink>
@@ -115,9 +133,15 @@ const Navbar = ({ children }) => {
             </NavLink>
           </li>
           <li>
-            <NavLink className="rounded-lg" to={"/login"}>
-              Login
-            </NavLink>
+            {user ? (
+              <span onClick={() => signOut(auth)} className="rounded-lg">
+                Signout
+              </span>
+            ) : (
+              <NavLink className="rounded-lg" to={"/login"}>
+                Login
+              </NavLink>
+            )}
           </li>
           <li>
             <Link className="rounded-lg" to={"/dashboard"}>
