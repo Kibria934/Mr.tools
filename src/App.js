@@ -30,7 +30,7 @@ function App() {
         <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/purchase" element={<Purchase />}></Route>
+        <Route path="/purchase/:id" element={<Purchase />}></Route>
         <Route
           path="/dashboard"
           element={

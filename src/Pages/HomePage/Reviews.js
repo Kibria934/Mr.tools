@@ -36,12 +36,12 @@ const Reviews = () => {
   return (
     <div>
       <div>
-        <h1 className="text-center text-secondary my-8 text-2xl text-primary h-full block mx-auto border-primary py-2  w-1/4 border-b-4 font-bold">
-          SOME VALUABLE REVIEWS FROM OUR
+        <h1 className="text-center text-primary my-8 text-2xl  h-full block mx-auto mb-20 py-2  w-1/4 mt-20 font-semibold">
+          Some valuable reviews from our
           <span className="font-bold text-orange-700"> CUSTOMER</span>
         </h1>
       </div>
-      <div className="my-4">
+      <div>
         <div>
           <SingleReview float={"left"} info={info1}></SingleReview>
         </div>

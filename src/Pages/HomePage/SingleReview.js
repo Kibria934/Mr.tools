@@ -6,7 +6,7 @@ const SingleReview = ({ info,float }) => {
   
 
   return (
-    <div className={`lg:w-[60%] float-${float} my-4 w-96 px-10`}>
+    <div className={`lg:w-[60%] float-${float} shadow-2xl my-16 w-96 px-10`}>
       <div class="card w-full bg-primary rounded-none ease-in duration-300 border-r-8 opacity-80 hover:opacity-100 border-red-700 text-white shadow-xl">
         <div class="card-body  flex lg:flex-row items-center ">
           <div class="avatar">

@@ -68,11 +68,6 @@ const Navbar = ({ children }) => {
                 </NavLink>
               </li>
               <li>
-                <NavLink className="rounded-lg" to={"/purchase"}>
-                  Purchase
-                </NavLink>
-              </li>
-              <li>
                 <NavLink className="rounded-lg" to={"/tools"}>
                   Tools
                 </NavLink>
@@ -115,11 +110,6 @@ const Navbar = ({ children }) => {
           <li>
             <NavLink className="rounded-lg" to={"/portfolio"}>
               Portfolio
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="rounded-lg" to={"/purchase"}>
-              Purchase
             </NavLink>
           </li>
           <li>
