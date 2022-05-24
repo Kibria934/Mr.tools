@@ -8,8 +8,10 @@ import {
   useSignInWithGoogle,
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Loading from "../SharedPage/Loading";
+import UseToken from "../Hook/UseToken";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -24,44 +26,48 @@ const Signup = () => {
   const navigate = useNavigate();
   const [myError, setMyError] = useState("");
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-  const [sendEmailVerification, sending, verifyError] = useSendEmailVerification(auth);
+  const [sendEmailVerification, sending, verifyError] =
+    useSendEmailVerification(auth);
+  const [token] = UseToken(user || gUser);
 
-
-  // if (gError || error) {
-  //   console.log(gError?.message || error?.message);
-  // }
-  if (loading || gLoading|| updating||sending) {
-    <p>Loading...</p>;
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+  if (loading || gLoading || updating || sending) {
+    <Loading />;
   }
+  useEffect(() => {
+    if (token) {
+      navigate(from, { replace: true });
+    }
+    if (loading) {
+      <Loading />;
+    }
+  }, [token,navigate,from, loading]);
 
   // ------ ERROR HANDALING ------
   useEffect(() => {
-    if (error) {
+    if (error || gError) {
       switch (error.code) {
         case "auth/email-already-in-use":
           setMyError("Your email already in used");
           break;
-        default:setMyError(error.code)
+        default:
+          setMyError(error.code || gError.code);
           break;
       }
     }
-    if(updateError){
+    if (updateError) {
       console.log(updateError.message);
-      
     }
     console.log(user);
-   
   }, [user, error]);
 
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     setEmail(data.email);
-    const name=data.name;
+    const name = data.name;
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
-    await sendEmailVerification
-    alert('Updated profile');
-    console.log(data.name);
-    
+    await sendEmailVerification();
   };
 
   const handleGoogle = () => {
@@ -73,27 +79,26 @@ const Signup = () => {
         <div class="card-body">
           <h3 className="text-center text-3xl font-bold">Sign Up</h3>
           {/* ------------------ */}
-          {error  &&
-            (
-              <div class="alert mt-4 alert-error shadow-lg">
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="stroke-current flex-shrink-0 h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <span>{myError}</span>
-                </div>
+          {error && (
+            <div class="alert mt-4 alert-error shadow-lg">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="stroke-current flex-shrink-0 h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>{myError}</span>
               </div>
-            )}
+            </div>
+          )}
           {/* ---------------- */}
           <form onSubmit={handleSubmit(onSubmit)} className="">
             <div class="form-control">
@@ -168,7 +173,12 @@ const Signup = () => {
             <button type="submit" class="btn mt-5 w-full btn-primary">
               Login
             </button>
-            <p>Already have an account? <Link to='/login' className='btn-link'>Login here</Link></p>
+            <p>
+              Already have an account?{" "}
+              <Link to="/login" className="btn-link">
+                Login here
+              </Link>
+            </p>
           </form>
           <div className="divider">OR</div>
           <button

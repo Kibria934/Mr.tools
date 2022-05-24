@@ -7,6 +7,8 @@ import {
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Loading from "../SharedPage/Loading";
+import UseToken from "../Hook/UseToken";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,15 +20,15 @@ const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+    const [token]=UseToken(user||gUser)
   const [myError, setMyError] = useState("");
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || '/';
-  console.log(from);
   
 
   useEffect(() => {
-    if (error) {
+    if (error|| gError) {
       switch (error.code) {
         case "auth/user-not-found":
           setMyError("Your have no account.Please crate an account first");
@@ -35,18 +37,18 @@ const Login = () => {
           setMyError("Your have no account.Please crate an account first");
           break;
         default:
-          setMyError(error.code);
+          setMyError(error.code|| gError.code);
           break;
       }
     }
     setMyError(gError?.message || error?.message);
-    if (user||gUser) {
+    if (token) {
       navigate(from, { replace: true });
     }
-  }, [user, error,gUser]);
+  }, [token,from,navigate, error,gUser]);
 
   if (loading || gLoading) {
-    <p>Loading...</p>;
+    <Loading/>
   }
 
   const onSubmit = (data) => {

@@ -1,5 +1,8 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 import Footer from "../../SharedPage/Footer";
+import Loading from "../../SharedPage/Loading";
 import Bannar from "./Bannar";
 import Reviews from "./Reviews";
 import Summary from "./Summary";

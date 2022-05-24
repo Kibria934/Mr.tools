@@ -18,8 +18,18 @@ import Portfolio from "./Pages/MyPortfolio/Portfolio";
 import Navbar from "./SharedPage/Navbar";
 import toast, { Toaster } from "react-hot-toast";
 import Purchase from "./Pages/ParchasePage/Purchase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "./firebase.init";
+import Loading from "./SharedPage/Loading";
+import { useEffect } from "react";
+import PaymentPage from "./Pages/DashboardPage/PaymentPage";
 
 function App() {
+  const [user, loading, Autherror] = useAuthState(auth);
+  if (loading) {
+    <Loading />;
+  }
+
   return (
     <Navbar>
       <Routes>
@@ -48,6 +58,7 @@ function App() {
         >
           {/* --------- nasted route----------- */}
           <Route path="myProfile" element={<MyProfile />}></Route>
+          <Route path="payment" element={<PaymentPage />}></Route>
           <Route path="myOrders" element={<MyOrder />}></Route>
           <Route path="myReview" element={<AddReview />}></Route>
           <Route path="addProduct" element={<AddProduct />}></Route>
@@ -56,7 +67,7 @@ function App() {
           <Route path="manageAllOrders" element={<MangeAllOrders />}></Route>
         </Route>
       </Routes>
-      <Toaster id={"text"}/>
+      <Toaster id={"text"} />
     </Navbar>
   );
 }

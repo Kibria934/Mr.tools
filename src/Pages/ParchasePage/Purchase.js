@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import PurchaseModal from "./PurchaseModal";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import Loading from "../../SharedPage/Loading";
 
 const Purchase = () => {
   const [user, loading, Autherror] = useAuthState(auth);
@@ -27,9 +28,13 @@ const Purchase = () => {
 
   useEffect(() => {
     setCount(num);
-    refetch()
-  }, [singleData,refetch]);
+  }, [singleData]);
 
+
+
+  if(loading||isLoading){
+    <Loading/>
+  }
   const handleIncrease = (e) => {
       setCount(+count + 1);
       if(count > singleData?.availableQuantity ){

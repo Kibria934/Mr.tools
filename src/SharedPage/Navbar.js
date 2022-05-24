@@ -1,11 +1,19 @@
 import { signOut } from "firebase/auth";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink } from "react-router-dom";
 import auth from "../firebase.init";
+import Loading from "./Loading";
 
 const Navbar = ({ children }) => {
   const [user, loading, error] = useAuthState(auth);
+  useEffect(() => {
+    if (loading) {
+      <Loading />;
+    }
+    console.log(user);
+  }, []);
+
   return (
     <div className="drawer drawer-end ">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -14,7 +22,7 @@ const Navbar = ({ children }) => {
           <div className="drawer-content flex flex-col items-center justify-center">
             <label
               tabIndex="0"
-              for="my-drawer-2"
+              for="dashboard-drawer"
               className="btn btn-ghost lg:hidden btn-circle"
             >
               <svg
@@ -78,6 +86,11 @@ const Navbar = ({ children }) => {
                 </NavLink>
               </li>
               <li>
+                <Link className="rounded-lg" to={"/dashboard/myOrders"}>
+                  Dashboard
+                </Link>
+              </li>
+              <li>
                 {user ? (
                   <span onClick={() => signOut(auth)} className="rounded-lg">
                     Signout
@@ -88,11 +101,11 @@ const Navbar = ({ children }) => {
                   </NavLink>
                 )}
               </li>
-              <li>
-                <Link className="rounded-lg" to={"/dashboard"}>
-                  Dashboard
-                </Link>
-              </li>
+              {user && (
+                <li>
+                  <span className="rounded-lg">{user?.displayName}</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -123,6 +136,11 @@ const Navbar = ({ children }) => {
             </NavLink>
           </li>
           <li>
+            <Link className="rounded-lg" to={"/dashboard/myOrders"}>
+              Dashboard
+            </Link>
+          </li>
+          <li>
             {user ? (
               <span onClick={() => signOut(auth)} className="rounded-lg">
                 Signout
@@ -132,11 +150,6 @@ const Navbar = ({ children }) => {
                 Login
               </NavLink>
             )}
-          </li>
-          <li>
-            <Link className="rounded-lg" to={"/dashboard"}>
-              Dashboard
-            </Link>
           </li>
         </ul>
       </div>
