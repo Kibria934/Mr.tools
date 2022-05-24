@@ -58,7 +58,7 @@ function App() {
         >
           {/* --------- nasted route----------- */}
           <Route path="myProfile" element={<MyProfile />}></Route>
-          <Route path="payment" element={<PaymentPage />}></Route>
+          <Route path="payment/:id" element={<PaymentPage />}></Route>
           <Route path="myOrders" element={<MyOrder />}></Route>
           <Route path="myReview" element={<AddReview />}></Route>
           <Route path="addProduct" element={<AddProduct />}></Route>

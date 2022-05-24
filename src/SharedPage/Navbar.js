@@ -85,14 +85,20 @@ const Navbar = ({ children }) => {
                   Blogs
                 </NavLink>
               </li>
-              <li>
+             {user&& <li>
                 <Link className="rounded-lg" to={"/dashboard/myOrders"}>
                   Dashboard
                 </Link>
-              </li>
+              </li>}
               <li>
                 {user ? (
-                  <span onClick={() => signOut(auth)} className="rounded-lg">
+                  <span
+                    onClick={() => {
+                      signOut(auth);
+                      localStorage.removeItem("accessToken");
+                    }}
+                    className="rounded-lg"
+                  >
                     Signout
                   </span>
                 ) : (
@@ -135,14 +141,20 @@ const Navbar = ({ children }) => {
               Blogs
             </NavLink>
           </li>
-          <li>
+       {  user&& <li>
             <Link className="rounded-lg" to={"/dashboard/myOrders"}>
               Dashboard
             </Link>
-          </li>
+          </li>}
           <li>
             {user ? (
-              <span onClick={() => signOut(auth)} className="rounded-lg">
+              <span
+                onClick={() => {
+                  localStorage.removeItem("accessToken");
+                  signOut(auth);
+                }}
+                className="rounded-lg"
+              >
                 Signout
               </span>
             ) : (

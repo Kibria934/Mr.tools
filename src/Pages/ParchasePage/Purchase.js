@@ -10,7 +10,7 @@ import auth from "../../firebase.init";
 import Loading from "../../SharedPage/Loading";
 
 const Purchase = () => {
-  const [user, loading, Autherror] = useAuthState(auth);
+  const [user, loading, AuthError] = useAuthState(auth);
   const { id } = useParams();
 
   const {
@@ -28,8 +28,12 @@ const Purchase = () => {
 
   useEffect(() => {
     setCount(num);
-  }, [singleData]);
+    console.log(count);
+    refetch()
+    
+  } ,[singleData]);
 
+console.log(singleData?.availableQuantity);
 
 
   if(loading||isLoading){
@@ -129,7 +133,7 @@ const Purchase = () => {
                   className="btn btn-primary px-10 text-uppercase text-white font-bold bg-gradient-to-r from-primary to-secondary"
                   onClick={handleModal}
                   class={
-                    count < num|| count>singleData?.availableQuantity
+                    count < num || count > singleData?.availableQuantity
                       ? `btn my-6 btn-disabled w-96 text-white btn-primary`
                       : `btn my-6 w-96 text-white btn-primary`
                   }
@@ -154,68 +158,3 @@ const Purchase = () => {
 };
 
 export default Purchase;
-// const [disabled, setDisabled] = useState(false);
-
-// const { name, img, desc, minOrQuantity, price, availableQuantity } =
-//   singleData;
-// const counter = { ...singleData };
-
-// const add = () => {
-//   console.log(counter);
-//   setCount(counter.minOrQuantity-1);
-//   // refetch()
-// };
-
-// const handleIncrease = (e) => {
-//   e.preventDefault()
-
-//   const count = e.target.quantity.value;
-//   console.log(count);
-
-// const number = +count;
-// if (count < 0) {
-//   toast.error("Please enter valid number");
-//   e.target.reset();
-// }
-// if (
-//   count >= +availableQuantity - count ||
-//   +minOrQuantity + number > availableQuantity
-// ) {
-//   toast.error(`We have not more than ${availableQuantity} products`);
-//   setDisabled(true)
-//   e.target.reset();
-// }
-// if (
-//   count > 0
-//   // count < +availableQuantity - count &&
-//   // counter?+minOrQuantity + number <= availableQuantity
-// ) {
-//   setDisabled(false)
-//   axios
-//     .put(`http://localhost:5000/update-tools/${id}`, {
-//       quantity: +minOrQuantity + number,
-//     })
-//     .then((data) => {
-//       console.log(data);
-//       refetch();
-//     });
-//   console.log(+availableQuantity - count);
-// }
-// e.target.reset();
-// };
-// const handleDecrease = () => {
-//   if (minOrQuantity <= 0) {
-//     toast.error("You have no products to remove");
-//   }
-//   if (minOrQuantity > 0) {
-//     axios
-//       .put(`http://localhost:5000/update-tools/${id}`, {
-//         quantity: minOrQuantity - 1,
-//       })
-//       .then((data) => {
-//         console.log(data);
-//         refetch();
-//       });
-//   console.log('helk');
-//   }
-// };

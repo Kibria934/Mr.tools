@@ -1,38 +1,22 @@
 import { async } from "@firebase/util";
 import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 import SingleReview from "./SingleReview";
 const axios = require("axios");
 
 const Reviews = () => {
+  const [user, loading, AuthError] = useAuthState(auth);
   const [review, setReview] = useState([]);
 
-  //   useEffect(() => {
-  //     axios
-  //       .get("http://localhost:5000/get-review")
-  //       .then((res) => setReview(res.data)());
-  //     console.log(review);
-  //   }, []);
-  const info1 = {
-    name: "John henry",
-    index: "1",
-    loaclity: "America",
-    review:
-      "Quality in a product or service is not what the supplier puts in. it is what the customer gets out and is willing to pay for. A product is not quality because it is hard to make and costs a lot of money, as manufacturers typically believe.",
-  };
-  const info2 = {
-    name: "Stephen King",
-    index: "2",
-    loaclity: "Canada",
-    review:
-      "A product is something made in a factory; a brand is something that is bought by the customer. A product can be copied by a competitor; a brand is unique. A product can be quickly outdated; a successful brand is timeless.",
-  };
-  const info3 = {
-    name: "Alan Cumming",
-    index: "3",
-    loaclity: "Srilangka",
-    review:
-      "My feeling about work is it’s much more about the experience of doing is than the end product. Sometimes things that are really great and make lots of money are miserable to make, and vice versa.",
-  };
+  useEffect(() => {
+    fetch(`http://localhost:5000/get-review`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setReview(data);
+      });
+  }, []);
   return (
     <div>
       <div>
@@ -42,14 +26,10 @@ const Reviews = () => {
         </h1>
       </div>
       <div>
-        <div>
-          <SingleReview float={"left"} info={info1}></SingleReview>
-        </div>
-        <div>
-          <SingleReview float={"right"} info={info2}></SingleReview>
-        </div>
-        <div>
-          <SingleReview float={"left"} info={info3}></SingleReview>
+        <div className="grid grid-cols-1 lg:grid-cols-3">
+          {
+            review.map(r=><SingleReview key={r._id} review={r}></SingleReview>)
+          }
         </div>
       </div>
     </div>
