@@ -3,9 +3,9 @@ import React from 'react';
 const RequireAdmin = () => {
     return (
         <div>
-            <h4>Thi is reqiradmin</h4>
+            <h3>This is admn</h3>
         </div>
     );
 };
 
-export default RequireAdmin; 
+export default RequireAdmin;

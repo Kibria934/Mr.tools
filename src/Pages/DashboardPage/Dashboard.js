@@ -1,7 +1,18 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from "../../firebase.init";
+import UseAdmin from "../../Hook/UseAdmin"
+import Loading from "../../SharedPage/Loading";
 
 const Dashboard = () => {
+
+  const [user] = useAuthState(auth);
+  const [admin,adminLoading] = UseAdmin(user);
+  console.log(admin);
+  if(Loading,adminLoading){
+    <Loading/>
+  }
   return (
     <div className="mt-16 ">
       <div class="drawer drawer-mobile">
@@ -23,6 +34,9 @@ const Dashboard = () => {
             <li>
               <NavLink to="/dashboard/myProfile">My Profile</NavLink>
             </li>
+            { admin && <li>
+              <NavLink to="/dashboard/makeAdmin">Make Admin</NavLink>
+            </li>}
           </ul>
         </div>
       </div>

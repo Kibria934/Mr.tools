@@ -1,7 +1,7 @@
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { useQueries } from "react-query";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import man from "../../Assets/images/man1.jpg";
 import auth from "../../firebase.init";
@@ -15,39 +15,63 @@ const MyProfile = () => {
     data: userInfo,
     isLoading,
     error,
-  } = useQueries(
-    "profile",
-    fetch(`http://localhost:5000/userProfile?email=${user.email}`, {
+    refetch,
+  } = useQuery("userInfo", () =>
+    fetch(`http://localhost:5000/userProfile?email=${user?.email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    }).then((res) => res.json())
+    }).then((res) => {
+      if (res.status === 404) {
+      return  'nothing found';
+      }
+     return res?.json();
+    })
   );
-console.log(userInfo);
 
   const onSubmit = (data) => {
-    console.log(data);
+    const info = {
+      userName: user.name,
+      email: user.email,
+      country: data.country,
+      city: data.city,
+      phone: data.phone,
+      facebook: data.facebook,
+      linkedIn: data.linkedIn,
+      education: data.education,
+      about: data.about,
+    };
     fetch(`http://localhost:5000/userProfile?email=${user.email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(info),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        refetch();
       });
 
     setChange(false);
   };
 
+  if (isLoading) {
+    <loading />;
+  }
+
   const handleUpdate = () => {
     setChange(true);
   };
+  const handleBack = () => {
+    setChange(false);
+  };
+
+
   return (
     <div>
       <div class="hero lg:min-w-[1300px] min-h-full ml-28 my-20">
@@ -60,6 +84,32 @@ console.log(userInfo);
           <div className="w-full px-6">
             <h1 class="text-5xl text-left  font-bold">{user.displayName}</h1>
             <p class="text-xl text-left my-2 ">{user.email}</p>
+            <p class="text-xl text-left my-2 ">
+              Country:
+              <span className="text-secondary font-bold">
+                {userInfo?.country}
+              </span>{" "}
+              <span className="ml-10">
+                City:{" "}
+                <span className="text-secondary font-bold">
+                  {userInfo?.city}
+                </span>
+              </span>
+            </p>
+            <p class="text-xl text-left my-2 ">
+              Phone number:{" "}
+              <span className="text-secondary font-bold">
+                {userInfo?.phone}
+              </span>
+            </p>
+            <p class="text-xl text-left my-2 ">
+              About Me:
+              <span className="text-secondary font-bold">
+                {userInfo?.about}
+              </span>
+            </p>
+          
+          
             {change && (
               <form className="" onSubmit={handleSubmit(onSubmit)}>
                 <span>
@@ -87,7 +137,7 @@ console.log(userInfo);
                     class="text-lg py-2  bg-transparent px-5 border-b-4 border-primary my-2 "
                     placeholder="Educational qualification"
                     name="educational"
-                    {...register("educational")}
+                    {...register("education")}
                   ></input>
                 </span>
                 <br />
@@ -115,14 +165,27 @@ console.log(userInfo);
                   <input
                     class="text-lg py-2 bg-transparent px-5 border-b-4 border-primary my-2 s"
                     placeholder="LinkedIn url"
-                    {...register("inkedIn")}
+                    {...register("linkedIn")}
                   ></input>
                 </span>
                 <br />
-                <input className="btn btn-secondary" type="submit" />
+                <span>
+                  <textarea
+                    class="text-lg lg:w-full lg:h-40 textarea py-2 bg-transparent px-5 border-b-4 border-primary my-2 s"
+                    placeholder="About you"
+                    {...register("about")}
+                  />
+                </span>
+                <br />
+                <input className="btn btn-secondary" type="submit" value={'save'} />
               </form>
             )}
 
+            {change && (
+              <button onClick={handleBack} class="btn float-right btn-primary">
+                Back
+              </button>
+            )}
             {!change && (
               <button onClick={handleUpdate} class="btn btn-primary">
                 Update Profile
@@ -134,5 +197,4 @@ console.log(userInfo);
     </div>
   );
 };
-
 export default MyProfile;
