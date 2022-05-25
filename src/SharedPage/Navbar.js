@@ -63,7 +63,7 @@ const Navbar = ({ children }) => {
             </label>
           </div>
           <div className="flex-none hidden lg:block">
-            <ul className="menu menu-horizontal  gap-4">
+            <ul className="menu menu-horizontal font-semibold text-xl gap-4">
               {/* <!-- Navbar menu content here --> */}
               <li>
                 <NavLink className="rounded-lg " to={"/"}>
@@ -73,11 +73,6 @@ const Navbar = ({ children }) => {
               <li>
                 <NavLink className="rounded-lg" to={"/portfolio"}>
                   Portfolio
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="rounded-lg" to={"/tools"}>
-                  Tools
                 </NavLink>
               </li>
               <li>
@@ -119,7 +114,7 @@ const Navbar = ({ children }) => {
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-        <ul className="menu p-4 overflow-y-auto w-80 bg-base-100">
+        <ul className="menu p-4 overflow-y-auto font-semibold text-xl w-80 bg-base-100">
           {/* -- Sidebar content here --> */}
           <li>
             <NavLink className="rounded-lg " to={"/"}>
@@ -129,11 +124,6 @@ const Navbar = ({ children }) => {
           <li>
             <NavLink className="rounded-lg" to={"/portfolio"}>
               Portfolio
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="rounded-lg" to={"/tools"}>
-              Tools
             </NavLink>
           </li>
           <li>

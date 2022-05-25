@@ -53,7 +53,7 @@ const Summary = () => {
             </h2>
           </div>
           <div class="card-actions justify-end">
-            <Link to='/contact' class="btn btn-primary">Contact</Link>
+            <Link to='/portfolio' class="btn btn-primary">Contact</Link>
             <Link to='/myProfile' class="btn btn-secondary">Explore</Link>
           </div>
         </div>

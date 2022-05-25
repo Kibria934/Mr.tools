@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const RequireAdmin = (user) => {
+const UseAdmin = (user) => {
   const [admin, setAdmin] = useState(false);
   const [adminLoading, setAdminLoading] = useState(true);
   useEffect(() => {
@@ -24,4 +24,4 @@ const RequireAdmin = (user) => {
   return [admin, adminLoading];
 };
 
-export default RequireAdmin;
+export default UseAdmin;

@@ -1,10 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const { register, handleSubmit } = useForm();
-
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     const image = data.image[0];
@@ -31,7 +32,7 @@ const AddProduct = () => {
             desc: data.desc,
             img: image,
             minOrQuantity: data.minOrQuantity,
-            price:data.price,
+            price: data.price,
           };
           fetch("http://localhost:5000/post-tools", {
             method: "POST",
@@ -44,8 +45,9 @@ const AddProduct = () => {
             .then((res) => res.json())
             .then((inserted) => {
               if (inserted.insertedId) {
+                Navigate("/");
                 toast.success("Product successfully added");
-                //   reset();
+                // reset();
               } else {
                 toast.error("Failed to add the product");
               }

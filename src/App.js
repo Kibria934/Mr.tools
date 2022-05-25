@@ -23,6 +23,7 @@ import auth from "./firebase.init";
 import Loading from "./SharedPage/Loading";
 import { useEffect } from "react";
 import PaymentPage from "./Pages/DashboardPage/PaymentPage";
+import NotFount from "./SharedPage/NotFount";
 
 function App() {
   const [user, loading, Autherror] = useAuthState(auth);
@@ -61,11 +62,40 @@ function App() {
           <Route path="payment/:id" element={<PaymentPage />}></Route>
           <Route path="myOrders" element={<MyOrder />}></Route>
           <Route path="myReview" element={<AddReview />}></Route>
-          <Route path="addProduct" element={<AddProduct />}></Route>
-          <Route path="makeAdmin" element={<MakeAdmin />}></Route>
-          <Route path="manageProducts" element={<ManageProducts />}></Route>
-          <Route path="manageAllOrders" element={<MangeAllOrders />}></Route>
+          <Route
+            path="addProduct"
+            element={
+              <RequireAdmin>
+                <AddProduct />
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path="makeAdmin"
+            element={
+              <RequireAdmin>
+                <MakeAdmin />
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path="manageProducts"
+            element={
+              <RequireAdmin>
+                <ManageProducts />
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path="manageAllProducts"
+            element={
+              <RequireAdmin>
+                <MangeAllOrders />
+              </RequireAdmin>
+            }
+          ></Route>
         </Route>
+        <Route path="*" element={<NotFount />}></Route>
       </Routes>
       <Toaster id={"text"} />
     </Navbar>

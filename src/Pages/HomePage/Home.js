@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Footer from "../../SharedPage/Footer";
 import Loading from "../../SharedPage/Loading";
@@ -16,13 +15,13 @@ const Home = () => {
         <Tools />
       </div>
       <div className="mb-40">
-      <Summary />
+        <Summary />
       </div>
       <div className="mb-40">
-      <Reviews />
+        <Reviews />
       </div>
       <div>
-      <Footer />
+        <Footer />
       </div>
     </div>
   );
