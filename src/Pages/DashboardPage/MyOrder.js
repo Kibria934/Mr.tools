@@ -12,56 +12,35 @@ import Modal from "../../SharedPage/Modal";
 const MyOrder = () => {
   const [user, loading, Autherror] = useAuthState(auth);
   const [modal, setModal] = useState(false);
-  const [confirm, setConfirm] = useState(false);
+  const [confirmId, setConfirmId] = useState(null);
+  const [orders, setOrders] = useState([]);
 
   const navigate = useNavigate();
 
-  const {
-    isLoading,
-    error,
-    refetch,
-    data: orders,
-  } = useQuery("orders", () =>
+  const { isLoading, error, refetch, } = useQuery("orders", () =>
     fetch(`http://localhost:5000/get-order?email=${user.email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    }).then((res) => {
-      if (res.status === 401 || res.status === 403) {
-        signOut(auth);
-        localStorage.removeItem("accessToken");
-        navigate("/");
-      }
-      return res.json();
     })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          localStorage.removeItem("accessToken");
+          navigate("/");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setOrders(data);
+      })
   );
 
   if (isLoading) {
     <Loading />;
   }
 
-  const handleCancel = async (id) => {
-    const proceed = window.confirm("want to cnfiem?");
-    if (proceed) {
-      fetch(`http://localhost:5000/delete-order/${id}`, {
-        method: "DELETE",
-        headers: {
-          "content-type": "application/json",
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            refetch();
-            toast.success("Your order canceled");
-          }
-
-          return res.json();
-        })
-        .then((data) => {});
-    }
-  };
-
+  console.log(confirmId);
   return (
     <div class="overflow-x-auto mx-auto mt-[-30px] lg:mr-20 lg:w-[70%]">
       <h1 className="text-center text-3xl  font-bold text-primary my-8">
@@ -106,8 +85,8 @@ const MyOrder = () => {
                       <button className="btn btn-sm btn-success">pay</button>
                     </Link>
                     <label
-                      // for="my-modal-6"
-                      onClick={() => handleCancel(o._id)}
+                      for="my-modal"
+                      onClick={() => setConfirmId(o._id)}
                       className="btn modal-button btn-sm ml-4"
                       type=""
                     >
@@ -132,26 +111,12 @@ const MyOrder = () => {
         </tbody>
       </table>
       {/* ============ modal =========== */}
-      {/* <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-      <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
-          <h3 class="font-bold text-lg">
-            Congratulations random Interner user!
-          </h3>
-          <p class="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
-          </p>
-          <div
-            onClick={()=>handleCancel(orders.)}
-            class="modal-action"
-          >
-            <label for="my-modal-6" class="btn">
-              Yay!
-            </label>
-          </div>
-        </div>
-      </div> */}
+      {/* <!-- The button to open modal --> */}
+      {/* <label for="my-modal" class="btn modal-button">open modal</label> */}
+
+      {/* <!-- Put this part before </body> tag --> */}
+
+      {confirmId && <Modal confirmId={confirmId} setConfirmId={setConfirmId} refetch={refetch} >order</Modal>}
     </div>
   );
 };
