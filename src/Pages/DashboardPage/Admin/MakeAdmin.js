@@ -64,12 +64,11 @@ const MakeAdmin = () => {
                     Make Admin
                   </button>
                 )}
-                <button
-                  type=""
-                  className="btn btn-xs ml-2 text-white bg-red-700"
+                {u.rol==='admin' && <span
+                  className=" ml-2 text-primary"
                 >
-                  Remove
-                </button>
+                  Admin
+                </span>}
               </td>
             </tr>
           ))}

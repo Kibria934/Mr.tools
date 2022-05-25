@@ -7,7 +7,7 @@ const PurchaseModal = ({ tools, setTools, user, totalQuantity }) => {
   const { register, handleSubmit } = useForm();
   const { _id, name, img, desc, minOrQuantity, availableQuantity, price } =
     tools;
-  console.log();
+  console.log(price);
 
   const onSubmit = (data) => {
     const orders = {
@@ -16,7 +16,7 @@ const PurchaseModal = ({ tools, setTools, user, totalQuantity }) => {
       email: data.email,
       phone: data.phone,
       address: data.address,
-      totalPrice: +price.split("$")[1] * totalQuantity,
+      totalPrice: +price * totalQuantity,
       orderQuantity: totalQuantity,
       availableQuantity: +availableQuantity,
     };

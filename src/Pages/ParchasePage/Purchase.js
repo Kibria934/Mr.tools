@@ -63,7 +63,7 @@ console.log(singleData?.availableQuantity);
       <div>
         <div class="card mt-20 w-full ">
           <figure>
-            <img width={"800px"} src={singleData?.img} alt="car!" />
+            <img width={"800px"} className="max-h-[50vh]" src={singleData?.img} alt="product" />
           </figure>
           <div className="mt-8 mx-auto max-w-[60vw]">
             <div>

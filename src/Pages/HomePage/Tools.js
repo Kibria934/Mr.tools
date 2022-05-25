@@ -30,13 +30,13 @@ const Tools = () => {
           {tools.slice(0, 6).map((tool) => (
            <div>
                 <div
-              className="max-h-[200px] lg:max-h-[400px] lg:hover:max-h-[800px] text-xl bg-orange-100 hover:scale-y-105 hover:shadow-2xl card mb-1 hover:max-h-full ease-in duration-300 overflow-hidden "
+              className="max-h-[200px] lg:max-h-[300px] lg:hover:max-h-[800px] text-xl bg-orange-100 hover:scale-y-105 hover:shadow-2xl card mb-1 hover:max-h-full ease-in duration-300 overflow-hidden "
               key={tool._id}
             >
-              <img width={"600px"} height={"500px"} src={tool.img} alt=""></img>
+              <img width={"100%"}  className="h-96" src={tool.img} alt=""></img>
               <div className="card-body py-1">
               <p className="text-2xl font-bold">{tool.name}</p>
-              <p>Price:{tool.price}<small>p/c</small></p>
+              <p>Price: ${tool.price}<small>p/c</small></p>
               <p className="">MinQuantity:{tool.minOrQuantity}</p>
               <p>Available Quantity:{tool.availableQuantity}</p>
               <p>{tool.desc.slice(0,150)}</p>
