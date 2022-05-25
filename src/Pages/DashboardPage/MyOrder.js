@@ -7,40 +7,21 @@ import { useQuery } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../../SharedPage/Loading";
+import Modal from "../../SharedPage/Modal";
 
 const MyOrder = () => {
   const [user, loading, Autherror] = useAuthState(auth);
-  // const [orders, setOrders] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (user) {
-  //     fetch(`http://localhost:5000/get-order?email=${user.email}`, {
-  //       method: "GET",
-  //       headers: {
-  //         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //       },
-  //     })
-  //       .then((res) => {
-  //         console.log("res", res);
-  //         if (res.status === 401 || res.status === 403) {
-  //           signOut(auth);
-  //           localStorage.removeItem("accessToken");
-  //           navigate("/");
-  //         }
-  //         return res.json();
-  //       })
-  //       .then((data) => {
-  //         setOrders(data);
-  //       });
-  //   }
-  // }, [user]);
 
   const {
     isLoading,
     error,
     refetch,
     data: orders,
-  } = useQuery('orders', () =>
+  } = useQuery("orders", () =>
     fetch(`http://localhost:5000/get-order?email=${user.email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -55,35 +36,39 @@ const MyOrder = () => {
     })
   );
 
-if(isLoading){
-  <Loading/>
-}
-  const handleCancel =async (id) => {
-    const proceed = window.confirm('Are you really want to cancel this order')
-  if(proceed){
-    fetch(`http://localhost:5000/delete-order/${id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        console.log(res);
-        if(res.status===200){
-          refetch()
-          toast.success('Your order canceled')
-        }
-        
-       return res.json()
-      })
-      .then((data) => {
-      });
+  if (isLoading) {
+    <Loading />;
   }
+
+  const handleCancel = async (id) => {
+    const proceed = window.confirm("want to cnfiem?");
+    if (proceed) {
+      fetch(`http://localhost:5000/delete-order/${id}`, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            refetch();
+            toast.success("Your order canceled");
+          }
+
+          return res.json();
+        })
+        .then((data) => {});
+    }
   };
 
   return (
-    <div class="overflow-x-auto w-full lg:w-10/12">
-      <table class="table w-full">
+    <div class="overflow-x-auto mx-auto mt-[-30px] lg:mr-20 lg:w-[70%]">
+      <h1 className="text-center text-3xl  font-bold text-primary my-8">
+        MY ORDERS
+      </h1>
+
+      <table class="table mx-auto w-full">
         {/* <!-- head --> */}
         <thead>
           <tr>
@@ -120,13 +105,14 @@ if(isLoading){
                     <Link to={`/dashboard/payment/${o._id}`}>
                       <button className="btn btn-sm btn-success">pay</button>
                     </Link>
-                    <button
+                    <label
+                      // for="my-modal-6"
                       onClick={() => handleCancel(o._id)}
-                      className="btn btn-error btn-sm ml-4"
+                      className="btn modal-button btn-sm ml-4"
                       type=""
                     >
                       Cancel
-                    </button>
+                    </label>
                   </>
                 )}
                 {o.totalPrice && o.paid && (
@@ -145,6 +131,27 @@ if(isLoading){
           ))}
         </tbody>
       </table>
+      {/* ============ modal =========== */}
+      {/* <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+      <div class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">
+            Congratulations random Interner user!
+          </h3>
+          <p class="py-4">
+            You've been selected for a chance to get one year of subscription to
+            use Wikipedia for free!
+          </p>
+          <div
+            onClick={()=>handleCancel(orders.)}
+            class="modal-action"
+          >
+            <label for="my-modal-6" class="btn">
+              Yay!
+            </label>
+          </div>
+        </div>
+      </div> */}
     </div>
   );
 };
