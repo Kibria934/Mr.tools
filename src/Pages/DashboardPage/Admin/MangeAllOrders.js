@@ -52,8 +52,8 @@ const MangeAllOrders = () => {
 
   return (
     <>
-      <h1 className="text-center text-3xl  font-bold text-primary my-8">
-        MY ORDERS
+      <h1 className="text-center text-3xl mb-10 font-bold text-primary my-8">
+       MANAGE ALL ORDER
       </h1>
       <div class="overflow-x-auto  w-96 mx-auto mt-[-30px] lg:mr-20 lg:w-[70%]">
         <table class="table mx-auto  lg:w-full">

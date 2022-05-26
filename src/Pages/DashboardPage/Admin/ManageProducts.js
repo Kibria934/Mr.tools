@@ -17,21 +17,6 @@ const ManageProducts = () => {
   }
   console.log(tools);
 
-  // const handleDelete = (id) => {
-  //   fetch(`https://peaceful-ridge-28382.herokuapp.com/delete-tool/${id}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "content-type": "application/json",
-  //       authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       refetch();
-  //       console.log(data);
-  //     });
-  // };
-
   return (
     <div>
       <h3 className="text-4xl text-center mb-8 text-secondary">

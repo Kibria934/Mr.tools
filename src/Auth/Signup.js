@@ -36,13 +36,16 @@ const Signup = () => {
     <Loading />;
   }
   useEffect(() => {
-    if (token) {
-      navigate(from, { replace: true });
-    }
     if (loading) {
       <Loading />;
     }
-  }, [token,navigate,from, loading]);
+    if (token) {
+      navigate(from, { replace: true });
+      console.log(user);
+      
+    }
+
+  }, [user,token,navigate,from, loading]);
 
   // ------ ERROR HANDALING ------
   useEffect(() => {
@@ -64,7 +67,8 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     setEmail(data.email);
-    const name = data.name;
+    console.log(data);
+    
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
     await sendEmailVerification();
