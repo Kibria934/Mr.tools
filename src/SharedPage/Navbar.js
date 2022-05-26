@@ -3,10 +3,12 @@ import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink } from "react-router-dom";
 import auth from "../firebase.init";
+import UseAdmin from "../Hook/UseAdmin";
 import Loading from "./Loading";
 
 const Navbar = ({ children }) => {
   const [user, loading, error] = useAuthState(auth);
+  const [admin, adminLoading] = UseAdmin(user);
   useEffect(() => {
     if (loading) {
       <Loading />;
@@ -80,11 +82,20 @@ const Navbar = ({ children }) => {
                   Blogs
                 </NavLink>
               </li>
-             {user&& <li>
-                <Link className="rounded-lg" to={"/dashboard/myOrders"}>
-                  Dashboard
-                </Link>
-              </li>}
+              {user && !admin && (
+                <li>
+                  <Link className="rounded-lg" to={"/dashboard/myOrders"}>
+                    Dashboard
+                  </Link>
+                </li>
+              )}
+              {admin && (
+                <li>
+                  <Link className="rounded-lg" to={"/dashboard/makeAdmin"}>
+                    Dashboard
+                  </Link>
+                </li>
+              )}
               <li>
                 {user ? (
                   <span
@@ -97,7 +108,10 @@ const Navbar = ({ children }) => {
                     Signout
                   </span>
                 ) : (
-                  <NavLink className="rounded-lg btn btn-outline btn-secondary" to={"/login"}>
+                  <NavLink
+                    className="rounded-lg btn btn-outline btn-secondary"
+                    to={"/login"}
+                  >
                     Login
                   </NavLink>
                 )}
@@ -131,11 +145,20 @@ const Navbar = ({ children }) => {
               Blogs
             </NavLink>
           </li>
-       {  user&& <li>
-            <Link className="rounded-lg" to={"/dashboard/myOrders"}>
-              Dashboard
-            </Link>
-          </li>}
+          {user && !admin && (
+            <li>
+              <Link className="rounded-lg" to={"/dashboard/myOrders"}>
+                Dashboard
+              </Link>
+            </li>
+          )}
+          {admin && (
+            <li>
+              <Link className="rounded-lg" to={"/dashboard/makeAdmin"}>
+                Dashboard
+              </Link>
+            </li>
+          )}
           <li>
             {user ? (
               <span
@@ -148,7 +171,10 @@ const Navbar = ({ children }) => {
                 Signout
               </span>
             ) : (
-              <NavLink className="rounded-lg btn btn-outline btn-secondary" to={"/login"}>
+              <NavLink
+                className="rounded-lg btn btn-outline btn-secondary"
+                to={"/login"}
+              >
                 Login
               </NavLink>
             )}
