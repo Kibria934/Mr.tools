@@ -20,7 +20,7 @@ const Portfolio = () => {
           </div>
           <div className="lg:w-full w-96 ml-3 pl-4 lg:px-6">
             <h3 className="text-3xl">Educational Qualification:</h3>
-            <div class="overflow-x-auto w-[350px]">
+            <div class="overflow-x-auto lg:w-full w-[350px]">
               <table class="table lg:w-full ">
                 {/* <!-- head --> */}
                 <thead>
