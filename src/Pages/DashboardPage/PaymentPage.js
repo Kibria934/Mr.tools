@@ -26,10 +26,9 @@ const PaymentPage = () => {
       },
     }).then((res) => res.json())
   );
-  console.log(order);
-if(isLoading){
-    return <Loading/>
-}
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <>
       <div class="card w-sm lg:w-2/5 bg-green-100 shadow-xl">

@@ -20,15 +20,14 @@ const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
-    const [token]=UseToken(user||gUser)
+  const [token] = UseToken(user || gUser);
   const [myError, setMyError] = useState("");
   let navigate = useNavigate();
   let location = useLocation();
-  let from = location.state?.from?.pathname || '/';
-  
+  let from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
-    if (error|| gError) {
+    if (error || gError) {
       switch (error.code) {
         case "auth/user-not-found":
           setMyError("Your have no account.Please crate an account first");
@@ -37,7 +36,7 @@ const Login = () => {
           setMyError("Your have no account.Please crate an account first");
           break;
         default:
-          setMyError(error.code|| gError.code);
+          setMyError(error.code || gError.code);
           break;
       }
     }
@@ -45,16 +44,14 @@ const Login = () => {
     if (token) {
       navigate(from, { replace: true });
     }
-  }, [token,from,navigate, error,gUser]);
+  }, [token, from, navigate, error, gUser]);
 
   if (loading || gLoading) {
-    <Loading/>
+    <Loading />;
   }
 
   const onSubmit = (data) => {
     setEmail(data.email);
-    console.log(data);
-
     signInWithEmailAndPassword(data.email, data.password);
   };
 

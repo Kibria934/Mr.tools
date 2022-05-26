@@ -19,8 +19,6 @@ const AddProduct = () => {
       body: formData,
     })
       .then((res) => {
-        console.log(res);
-
         return res.json();
       })
       .then((result) => {

@@ -7,7 +7,6 @@ const PurchaseModal = ({ tools, setTools, user, totalQuantity }) => {
   const { register, handleSubmit } = useForm();
   const { _id, name, img, desc, minOrQuantity, availableQuantity, price } =
     tools;
-  console.log(price);
 
   const onSubmit = (data) => {
     const orders = {
@@ -20,10 +19,8 @@ const PurchaseModal = ({ tools, setTools, user, totalQuantity }) => {
       orderQuantity: totalQuantity,
       availableQuantity: +availableQuantity,
     };
-    console.log(orders);
 
     axios.post(`https://peaceful-ridge-28382.herokuapp.com/post-order`, orders).then((data) => {
-      console.log(data);
       if (data.status === 200) {
         toast.success(`You have successfully booked ${name}`);
       }

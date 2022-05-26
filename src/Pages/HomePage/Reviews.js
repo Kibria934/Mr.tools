@@ -13,10 +13,10 @@ const Reviews = () => {
     fetch(`https://peaceful-ridge-28382.herokuapp.com/get-review`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setReview(data);
       });
   }, []);
+
   return (
     <div>
       <div>
@@ -27,9 +27,9 @@ const Reviews = () => {
       </div>
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-3">
-          {
-            review.map(r=><SingleReview key={r._id} review={r}></SingleReview>)
-          }
+          {review.map((r) => (
+            <SingleReview key={r._id} review={r}></SingleReview>
+          ))}
         </div>
       </div>
     </div>

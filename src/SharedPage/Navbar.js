@@ -13,7 +13,6 @@ const Navbar = ({ children }) => {
     if (loading) {
       <Loading />;
     }
-    console.log(user);
   }, []);
 
   return (

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 
 const CheckoutForm = ({ order }) => {
   const { totalPrice } = order;
-  console.log(totalPrice);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -27,7 +26,6 @@ const CheckoutForm = ({ order }) => {
       .then((data) => {
         if (data?.clientSecret) {
           setClientSecret(data.clientSecret);
-          console.log(data.clientSecret);
         }
       });
   }, [totalPrice]);
@@ -72,7 +70,6 @@ const CheckoutForm = ({ order }) => {
       }
       setCardErrors("");
       setTransactionId(paymentIntent.id);
-      console.log(paymentIntent);
       setSuccess("Congrats! Your payment is completed.");
 
       const paidOrder = {
@@ -89,7 +86,6 @@ const CheckoutForm = ({ order }) => {
     }).then(res=>res.json())
     .then(data => {
         setProcessing(false);
-        console.log(data);
     })
     
   };

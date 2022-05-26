@@ -15,7 +15,6 @@ const ManageProducts = () => {
   if (isLoading) {
     <Loading />;
   }
-  console.log(tools);
 
   return (
     <div>
@@ -55,7 +54,9 @@ const ManageProducts = () => {
           confirmId={confirmId}
           setConfirmId={setConfirmId}
           refetch={refetch}
-        >tool</Modal>
+        >
+          tool
+        </Modal>
       )}
     </div>
   );

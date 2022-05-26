@@ -45,15 +45,15 @@ const MangeAllOrders = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-          toast.success('Successfully shipped')
-          refetch()
-        });
+        toast.success("Successfully shipped");
+        refetch();
+      });
   };
 
   return (
     <>
       <h1 className="text-center text-3xl mb-10 font-bold text-primary my-8">
-       MANAGE ALL ORDER
+        MANAGE ALL ORDER
       </h1>
       <div class="overflow-x-auto  w-96 mx-auto mt-[-30px] lg:mr-20 lg:w-[70%]">
         <table class="table mx-auto  lg:w-full">
@@ -84,13 +84,13 @@ const MangeAllOrders = () => {
 
                 {o.totalPrice && o.paid && o.status !== "shiped" && (
                   <div class="indicator">
-                      <span class="indicator-item badge badge-primary">
-                        Panding..
-                      </span>
-                      <span class="grid min-w-28  p-3  bg-base-200 place-items-center">
-                        {o.productName}
-                      </span>
-                    </div>
+                    <span class="indicator-item badge badge-primary">
+                      Panding..
+                    </span>
+                    <span class="grid min-w-28  p-3  bg-base-200 place-items-center">
+                      {o.productName}
+                    </span>
+                  </div>
                 )}
                 {o.totalPrice && o.paid && o.status === "shiped" && (
                   <td>

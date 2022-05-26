@@ -11,7 +11,6 @@ const AddReview = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const onSubmit = (data) => {
-    console.log(data);
     const review = {
       ...data,
       email: user?.email,

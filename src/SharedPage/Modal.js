@@ -11,7 +11,6 @@ const Modal = ({ children, confirmId, setConfirmId, refetch }) => {
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             refetch();
             toast.success("Your products deleted");

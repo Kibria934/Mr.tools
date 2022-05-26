@@ -28,12 +28,10 @@ const Purchase = () => {
 
   useEffect(() => {
     setCount(num);
-    console.log(count);
     refetch()
     
   } ,[singleData]);
 
-console.log(singleData?.availableQuantity);
 
 
   if(loading||isLoading){
@@ -55,8 +53,6 @@ console.log(singleData?.availableQuantity);
   const handleModal = () => {
     setTools(singleData);
   };
-  console.log(singleData);
-  // refetch()
 
   return (
     <div className="p-16 bg-emerald-100 lg:p-0">

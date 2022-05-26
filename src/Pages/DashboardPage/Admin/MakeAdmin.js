@@ -17,7 +17,6 @@ const MakeAdmin = () => {
   }
 
   const handleAdmin = (email) => {
-    console.log(email);
     fetch(`https://peaceful-ridge-28382.herokuapp.com/admin/${email}`, {
       method: "PUT",
       headers: {
@@ -26,7 +25,6 @@ const MakeAdmin = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           toast.success("Successfully made admin");
         } else {

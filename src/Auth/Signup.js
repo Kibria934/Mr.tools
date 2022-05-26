@@ -41,7 +41,6 @@ const Signup = () => {
     }
     if (token) {
       navigate(from, { replace: true });
-      console.log(user);
       
     }
 
@@ -62,12 +61,10 @@ const Signup = () => {
     if (updateError) {
       console.log(updateError.message);
     }
-    console.log(user);
   }, [user, error]);
 
   const onSubmit = async (data) => {
     setEmail(data.email);
-    console.log(data);
     
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
