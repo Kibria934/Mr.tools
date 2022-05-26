@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 const Modal = ({ children, confirmId, setConfirmId, refetch }) => {
   const handleCancel = async (id) => {
-      fetch(`http://localhost:5000/delete-${children}/${id}`, {
+      fetch(`https://peaceful-ridge-28382.herokuapp.com/delete-${children}/${id}`, {
         method: "DELETE",
         headers: {
           "content-type": "application/json",

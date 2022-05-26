@@ -12,13 +12,13 @@ import success from "../../Assets/images/success.png";
 const More = () => {
   const form = useLocation();
   return (
-    <div className="food-section w-[70vw] mx-auto">
-      <h1 className="text-5xl my-6">Why you chose us</h1>
-      <p className="lg:w-2/4 text-xl font-serif">
+    <div className="food-section lg:w-[70vw] mx-auto">
+      <h1 className="text-5xl px-3 my-6">Why you chose us</h1>
+      <p className="lg:w-2/4 text-xl px-1 font-serif">
         We are the fastest product supplier service. You can get your on
         time.Your info is always very private.Our payment service is very easy
       </p>
-     <div className="flex justify-between">
+     <div className="flex lg:flex-row flex-col justify-between">
      <WhyChose img={tools1} icon={<BsTruck />} head={"Fast Service"}>
         We serve our customer in a very fast Delivery system. We dont late
         never. We are very carefull of our respected customer.

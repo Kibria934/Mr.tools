@@ -17,7 +17,7 @@ const MyProfile = () => {
     error,
     refetch,
   } = useQuery("userInfo", () =>
-    fetch(`http://localhost:5000/userProfile?email=${user?.email}`, {
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/userProfile?email=${user?.email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -43,7 +43,7 @@ const MyProfile = () => {
       education: data.education,
       about: data.about,
     };
-    fetch(`http://localhost:5000/userProfile?email=${user.email}`, {
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/userProfile?email=${user.email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -74,17 +74,17 @@ const MyProfile = () => {
 
   return (
     <div>
-      <div class="hero lg:min-w-[1300px] min-h-full ml-28 my-20">
+      <div class="hero lg:min-w-[1300px] min-h-full lg:ml-28 my-20">
         <div class="hero-content min-w-full bg-base-200  flex-col ">
           <img
             src={man}
-            class="max-w-sm mt-[-200px] border-emerald-200 border-2 rounded-full shadow-2xl"
+            class="max-w-xs mt-[-200px] border-emerald-200 border-2 rounded-full shadow-2xl"
             alt=""
           />
-          <div className="w-full px-6">
-            <h1 class="text-5xl text-left  font-bold">{user.displayName}</h1>
-            <p class="text-xl text-left my-2 ">{user.email}</p>
-            <p class="text-xl text-left my-2 ">
+          <div className="w-full mt-10 px-6">
+            <h1 class="lg:text-5xl text-3xl text-left  font-bold">{user.displayName}</h1>
+            <p class="lg:text-5xl text-xl text-left my-2 ">{user.email}</p>
+            <p class="lg:text-5xl text-xl text-left my-2 ">
               Country:
               <span className="text-secondary font-bold">
                 {userInfo?.country}

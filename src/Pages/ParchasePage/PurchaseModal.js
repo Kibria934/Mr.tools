@@ -22,7 +22,7 @@ const PurchaseModal = ({ tools, setTools, user, totalQuantity }) => {
     };
     console.log(orders);
 
-    axios.post(`http://localhost:5000/post-order`, orders).then((data) => {
+    axios.post(`https://peaceful-ridge-28382.herokuapp.com/post-order`, orders).then((data) => {
       console.log(data);
       if (data.status === 200) {
         toast.success(`You have successfully booked ${name}`);

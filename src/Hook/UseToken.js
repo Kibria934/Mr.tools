@@ -7,7 +7,7 @@ const UseToken = (user) => {
       const email = user?.user?.email;
       
       const currentUser = { email: email };
-      fetch(`http://localhost:5000/user/${email}`, {
+      fetch(`https://peaceful-ridge-28382.herokuapp.com/user/${email}`, {
         method: "PUT",
         Headers: {
           "content-type": "application/json",

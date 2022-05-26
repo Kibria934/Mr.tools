@@ -15,7 +15,7 @@ const CheckoutForm = ({ order }) => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://peaceful-ridge-28382.herokuapp.com/create-payment-intent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -79,7 +79,7 @@ const CheckoutForm = ({ order }) => {
         order: order._id,
         transactionId: paymentIntent.id,
       };
-      fetch(`http://localhost:5000/order/${order._id}`, {
+      fetch(`https://peaceful-ridge-28382.herokuapp.com/order/${order._id}`, {
         method: 'PATCH',
         headers: {
             'content-type': 'application/json',

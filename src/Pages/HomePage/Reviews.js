@@ -10,7 +10,7 @@ const Reviews = () => {
   const [review, setReview] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/get-review`)
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-review`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

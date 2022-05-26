@@ -19,7 +19,7 @@ const Purchase = () => {
     refetch,
     data: singleData,
   } = useQuery("singleData", () =>
-    fetch(`http://localhost:5000/get-tools/${id}`).then((res) => res.json())
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-tools/${id}`).then((res) => res.json())
   );
   const num = singleData?.minOrQuantity;
   const [tools, setTools] = useState(null);
@@ -69,14 +69,14 @@ console.log(singleData?.availableQuantity);
             <div>
               <div>
                 <div>
-                  <div className="flex flex-row justify-center mt-10">
+                  <div className="flex lg:flex-row justify-center mt-10">
                     <div>
                       <button
                         title="Remove products"
                         className={
                           count < num
-                            ? `btn btn-disabled btn-outline  text-3xl text-extrabold btn-neutral`
-                            : `btn btn-outline text-3xl text-extrabold btn-neutral`
+                            ? `btn btn-disabled btn-outline text-sm lg:text-3xl text-extrabold btn-neutral`
+                            : `btn btn-outline g:text-3xl text-extrabold btn-neutral`
                         }
                         type=""
                         onClick={handleDicrease}
@@ -122,7 +122,7 @@ console.log(singleData?.availableQuantity);
                 <h3 className="text-2xl">
                   Available Stock: {singleData?.availableQuantity}
                 </h3>
-                <h3 className="text-2xl">
+                <h3 className="lg:text-2xl text-md my-2">
                   Minimum order quantity: {singleData?.minOrQuantity}
                 </h3>
                 <p>{singleData?.desc}</p>
@@ -134,8 +134,8 @@ console.log(singleData?.availableQuantity);
                   onClick={handleModal}
                   class={
                     count < num || count > singleData?.availableQuantity
-                      ? `btn my-6 btn-disabled w-96 text-white btn-primary`
-                      : `btn my-6 w-96 text-white btn-primary`
+                      ? `btn my-6 btn-disabled lg:w-96 text-white btn-primary`
+                      : `btn my-6 lg:w-96 text-white btn-primary`
                   }
                 >
                   Purchase

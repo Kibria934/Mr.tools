@@ -19,7 +19,7 @@ const PaymentPage = () => {
   const { id } = useParams();
 
   const { data: order, isLoading } = useQuery(["order", id], () =>
-    fetch(`http://localhost:5000/get-order/${id}`, {
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-order/${id}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -58,7 +58,7 @@ if(isLoading){
         </div>
       </div>
 
-      <div class="card mt-10 w-sm lg:w-2/5 bg-red-50 shadow-xl">
+      <div class="card mt-10 w-96 lg:w-2/5 bg-red-50 shadow-xl">
         <Elements stripe={stripePromise}>
           <CheckoutForm order={order} />
         </Elements>

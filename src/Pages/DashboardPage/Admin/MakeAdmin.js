@@ -10,7 +10,7 @@ const MakeAdmin = () => {
     refetch,
     data: user,
   } = useQuery("user", () =>
-    fetch(`http://localhost:5000/user`).then((res) => res.json())
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/user`).then((res) => res.json())
   );
   if (isLoading) {
     <Loading></Loading>;
@@ -18,7 +18,7 @@ const MakeAdmin = () => {
 
   const handleAdmin = (email) => {
     console.log(email);
-    fetch(`http://localhost:5000/admin/${email}`, {
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/admin/${email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -41,7 +41,7 @@ const MakeAdmin = () => {
 
   return (
     <div class="overflow-x-auto">
-      <table class="table lg:min-w-[700px]">
+      <table class="table w-sm lg:min-w-[700px]">
         <thead>
           <tr>
             <th></th>
@@ -59,13 +59,13 @@ const MakeAdmin = () => {
                   <button
                     type=""
                     onClick={() => handleAdmin(u.email)}
-                    className="btn btn-xs btn-secondary"
+                    className="btn  btn-xs text-center btn-secondary"
                   >
                     Make Admin
                   </button>
                 )}
                 {u.rol==='admin' && <span
-                  className=" ml-2 text-primary"
+                  className=" lg:ml-2 text-primary"
                 >
                   Admin
                 </span>}

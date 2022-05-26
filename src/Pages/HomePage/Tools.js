@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Tools = () => {
   const [tools, setTools] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/get-tools`)
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-tools`)
       .then((res) => res.json())
       .then((data) => {
         setTools(data);

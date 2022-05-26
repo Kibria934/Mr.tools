@@ -16,7 +16,7 @@ const AddReview = () => {
       ...data,
       email: user?.email,
     };
-    fetch(`http://localhost:5000/review?email=${user.email}`, {
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/review?email=${user.email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

@@ -7,7 +7,7 @@ const ManageProducts = () => {
   const [tools, setTools] = useState([]);
   const [confirmId, setConfirmId] = useState(null);
   const { data, isLoading, refetch } = useQuery("tools", () =>
-    fetch(`http://localhost:5000/get-tools`)
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-tools`)
       .then((res) => res.json())
       .then((data) => setTools(data))
   );
@@ -18,7 +18,7 @@ const ManageProducts = () => {
   console.log(tools);
 
   // const handleDelete = (id) => {
-  //   fetch(`http://localhost:5000/delete-tool/${id}`, {
+  //   fetch(`https://peaceful-ridge-28382.herokuapp.com/delete-tool/${id}`, {
   //     method: "DELETE",
   //     headers: {
   //       "content-type": "application/json",
@@ -34,7 +34,7 @@ const ManageProducts = () => {
 
   return (
     <div>
-      <h3 className="text-4xl text-center my-10 text-secondary">
+      <h3 className="text-4xl text-center mb-8 text-secondary">
         Manage Your Products:
       </h3>
       <div className="grid grid-cols-1 h-full ml-10 lg:grid-cols-4 lg:float-right gap-16 lg:w-10/12">
@@ -58,7 +58,7 @@ const ManageProducts = () => {
                   className="btn modal-button btn-primary"
                   type=""
                 >
-                  Cancel
+                  delete
                 </label>
               </div>
             </div>

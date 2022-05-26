@@ -13,7 +13,7 @@ const Summary = () => {
       </h1>
       <div
         style={{ background: `url(${summary})` }}
-        class="stats border-0 flex mx-auto w-[90vw] h-[40vh] mt-10 shadow"
+        class="stats border-0 flex mx-auto lg:w-[90vw] h-[40vh] mt-10 shadow"
       >
         <div class="stat place-items-center">
           <div>
