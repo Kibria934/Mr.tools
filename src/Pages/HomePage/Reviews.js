@@ -26,7 +26,7 @@ const Reviews = () => {
         </h1>
       </div>
       <div>
-        <div className="grid grid-cols-1  lg:grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
           {
             review.map(r=><SingleReview key={r._id} review={r}></SingleReview>)
           }
