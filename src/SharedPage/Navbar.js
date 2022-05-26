@@ -97,7 +97,7 @@ const Navbar = ({ children }) => {
                     Signout
                   </span>
                 ) : (
-                  <NavLink className="rounded-lg" to={"/login"}>
+                  <NavLink className="rounded-lg btn btn-outline btn-secondary" to={"/login"}>
                     Login
                   </NavLink>
                 )}
@@ -148,7 +148,7 @@ const Navbar = ({ children }) => {
                 Signout
               </span>
             ) : (
-              <NavLink className="rounded-lg" to={"/login"}>
+              <NavLink className="rounded-lg btn btn-outline btn-secondary" to={"/login"}>
                 Login
               </NavLink>
             )}

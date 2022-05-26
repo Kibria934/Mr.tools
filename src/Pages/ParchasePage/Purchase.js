@@ -42,14 +42,14 @@ console.log(singleData?.availableQuantity);
   const handleIncrease = (e) => {
       setCount(+count + 1);
       if(count > singleData?.availableQuantity ){
-      return toast.error('enter valid number')
+      return toast.error('We have no enough stock')
       }
   };
 
   const handleDicrease = (e) => {
     setCount(count - 1);
     if (count <= num) {
-      return toast.error("Please Enter minimum number");
+      return toast.error("Please Order more thane Minimum quantity");
     }
   };
   const handleModal = () => {

@@ -24,6 +24,7 @@ import Loading from "./SharedPage/Loading";
 import { useEffect } from "react";
 import PaymentPage from "./Pages/DashboardPage/PaymentPage";
 import NotFount from "./SharedPage/NotFount";
+import Electrical from "./Pages/HomePage/Electrical";
 
 function App() {
   const [user, loading, Autherror] = useAuthState(auth);

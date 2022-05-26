@@ -2,8 +2,8 @@ import React from "react";
 
 const SingleReview = ({ review }) => {
   return (
-    <div className={`mx-auto  w-10/12 my-16`}>
-      <div class="card w-full rounded-md lg:min-h-[310px] max-h-[400px] bg-primary rounded-none ease-in duration-300 border-b-8 opacity-80 hover:opacity-100 border-red-700 text-white shadow-xl">
+    <div className={`mx-auto   lg:w-11/12`}>
+      <div class="card w-full rounded-xl lg:min-h-[310px] max-h-[400px] bg-base-100 rounded-none ease-in duration-300 border-b-8 border-red-700 border text-primary shadow-xl">
         <div class="card-body flex lg:flex-row items-center ">
           <div class="avatar">
             <div class="w-24 mask mask-hexagon">
