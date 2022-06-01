@@ -10,9 +10,9 @@ const WhyChose = ({children,head,icon,img}) => {
   return (
     <div>
       <div className="mt-10">
-        <div class="card card-compact w-96 bg-base-100 shadow-xl">
+        <div class="card card-compact lg:w-96 w-[100%] mx-auto bg-base-100 shadow-xl">
           <figure>
-            <img className="min-h-[350px]"
+            <img className="lg:min-h-[350px] h-[200px]"
               src={img}
               alt="Tools"
             />

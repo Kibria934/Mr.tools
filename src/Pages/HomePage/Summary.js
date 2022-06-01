@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
 const Summary = () => {
   return (
     <div>
-      <h1 className="text-5xl text-center text-primary uppercase font-bold mb-0 mt-8">
+      <h1 className="lg:text-5xl text-2xl text-center text-primary uppercase font-bold mb-0 mt-8">
         Million business has trusted us
       </h1>
       <div
@@ -17,38 +17,38 @@ const Summary = () => {
       >
         <div class="stat place-items-center">
           <div>
-            <p className="text-8xl text-green-600">
+            <p className="lg:text-8xl text-4xl text-[#e6194d]">
               <BsCalendarEvent />
             </p>
-            <span class="stat-value text-primary">31M+</span>
-            <h1 className=" text-3xl">Annual revenue</h1>
+            <span class="stat-value text-primary ">31M+</span>
+            <h1 className=" lg:text-3xl py-2">Revenue</h1>
           </div>
         </div>
 
         <div class="stat place-items-center">
           <div>
-            <p className="text-8xl text-green-600">
+            <p className="lg:text-8xl text-5xl text-[#e6194d]">
               <MdOutlineRateReview />
             </p>
-            <span class="stat-value text-primary">33K+</span>
-            <h1 className=" text-3xl"> Reviews</h1>
+            <span class="stat-value text-primary ">33K+</span>
+            <h1 className=" lg:text-3xl py-2"> Reviews</h1>
           </div>
         </div>
 
         <div class="stat place-items-center">
           <div>
-            <p className="text-8xl text-green-600">
+            <p className="lg:text-8xl text-5xl text-[#e6194d]">
               <RiCustomerService2Fill />
             </p>
-            <span class="stat-value text-primary">23K+</span>
-            <h1 className=" text-3xl">customers</h1>
+            <span class="stat-value text-primary ">23K+</span>
+            <h1 className=" lg:text-3xl py-2">customers</h1>
           </div>
         </div>
       </div>
-      <div class="card  bg-base-100 flex justify-center h-full shadow-2xl w-[50vw] mx-auto shadow-xl">
-        <div class="card-body flex flex-row items-center justify-between">
-          <div className="w-[30vw]">
-            <h2 class="card-title w-full text-secondary text-4xl">
+      <div class="card bg-base-100 flex justify-center h-full shadow-2xl lg:w-[50vw] w-full mx-auto shadow-xl">
+        <div class="card-body flex lg:flex-row items-center justify-between">
+          <div className="lg:w-[30vw]">
+            <h2 class="card-title w-full text-secondary lg:text-4xl">
               Have any question about us or get a product request?
             </h2>
           </div>
