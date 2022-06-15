@@ -16,6 +16,11 @@
 - React firebase hook
 - React hot toast
 
+# admin information: 
+admin@gmail.com
+aaaaaa
+
+
 ## Feature I used in this project:
 - Simple Homepage(navbar,banner,tools, summery, review,footer)
 - Portfolio

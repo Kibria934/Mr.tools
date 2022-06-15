@@ -3,7 +3,7 @@ import Loading from "./Loading";
 
 const Footer = () => {
   return (
-    <footer class="footer text-white p-10 bg-gray-900 lg:flex font-semibold items-center text-lg justify-around shadow-lg text-primary">
+    <footer class="footer text-white p-10 bg-gray-900 lg:flex font-semibold items-center text-lg justify-around shadow-lg ">
       <div>
         <p>
           Mr.tools Co ltd
