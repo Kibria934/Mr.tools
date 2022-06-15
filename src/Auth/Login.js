@@ -33,14 +33,15 @@ const Login = () => {
           setMyError("Your have no account.Please crate an account first");
           break;
         case "auth/wrong-password":
-          setMyError("Your have no account.Please crate an account first");
+          setMyError("Your Your password is wrong.");
           break;
         default:
           setMyError(error.code || gError.code);
           break;
+          console.log(error.code, gError.code);
+          
       }
     }
-    setMyError(gError?.message || error?.message);
     if (token) {
       navigate(from, { replace: true });
     }
@@ -63,6 +64,27 @@ const Login = () => {
       <div class="card  flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl bg-base-200">
         <div class="card-body">
           <h2 className="text-center text-3xl font-bold">Login</h2>
+          {/* --------------- alert box for error ------------- */}
+         {error &&
+          <div class="alert alert-error shadow-lg">
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="stroke-current flex-shrink-0 h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{myError}</span>
+            </div>
+          </div>}
+          {/* ---------------------- */}
           <form onSubmit={handleSubmit(onSubmit)} className="">
             <div class="form-control">
               <label class="label">
@@ -108,15 +130,14 @@ const Login = () => {
                 </span>
               )}
 
-              {gError && (
+              {(error?.code &&'auth/wrong-password')  && (
                 <label class="label">
-                  <span class="label-text-alt link link-hover">
+                  <span class="label-text-alt link text-error link-hover">
                     Forgot password?
                   </span>
                 </label>
               )}
             </div>
-            {<p>{myError}</p>}
             <button type="submit" class="btn mt-5 w-full btn-primary">
               Login
             </button>
