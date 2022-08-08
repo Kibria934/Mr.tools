@@ -15,14 +15,17 @@ const AddReview = () => {
       ...data,
       email: user?.email,
     };
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/review?email=${user.email}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(review),
-    })
+    fetch(
+      `https://peaceful-ridge-28382.herokuapp.com/review?email=${user.email}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(review),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         toast.success("Your Review added successfully");

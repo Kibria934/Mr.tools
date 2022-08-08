@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import './Tools.css'
-
+import Loading from "../../SharedPage/Loading";
+import "./Tools.css";
 
 const Tools = () => {
-  const [tools, setTools] = useState([]);
-  useEffect(() => {
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-tools`)
-      .then((res) => res.json())
-      .then((data) => {
-        setTools(data);
-      });
-  }, []);
+  const { isLoading, data: tools } = useQuery(["repoData"], () =>
+    fetch("https://peaceful-ridge-28382.herokuapp.com/get-tools").then((res) =>
+      res.json()
+    )
+  );
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="bg-slate-800 py-8 ">
@@ -26,13 +27,13 @@ const Tools = () => {
       </div>
       <div className="h-full py-2 px-10">
         <div className="grid mx-auto grid-cols-1 lg:grid-cols-3 gap-5">
-          {tools.slice(0, 3).map((tool) => (
-            <div>
+          {tools?.slice(0, 3).map((tool) => (
+            <Fragment key={tool._id}>
               <div
                 className="max-h-[200px] pb-10 fontStyle lg:max-h-[350px] text-white lg:hover:max-h-[800px] text-xl bg-secondary hover:scale-y-105 hover:shadow-2xl card mb-1 hover:max-h-full ease-in duration-300 overflow-hidden "
                 key={tool._id}
               >
-                <img 
+                <img
                   width={"100%"}
                   className="h-96 pb-8"
                   src={tool.img}
@@ -42,7 +43,7 @@ const Tools = () => {
                   <p className="text-2xl font-bold">{tool.name}</p>
                   <p>
                     Price: {tool.price}
-                     <small> p/c</small>
+                    <small> p/c</small>
                   </p>
                   <p className="">MinQuantity: {tool.minOrQuantity}</p>
                   <p>Available Quantity: {tool.availableQuantity}</p>
@@ -55,7 +56,7 @@ const Tools = () => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </Fragment>
           ))}
         </div>
       </div>
@@ -64,3 +65,4 @@ const Tools = () => {
 };
 
 export default Tools;
+// https://peaceful-ridge-28382.herokuapp.com/get-tools

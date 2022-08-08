@@ -2,6 +2,7 @@ import { signInWithPopup } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import auth from "../firebase.init";
+import { motion } from "framer-motion";
 import {
   useCreateUserWithEmailAndPassword,
   useSendEmailVerification,
@@ -41,10 +42,8 @@ const Signup = () => {
     }
     if (token) {
       navigate(from, { replace: true });
-      
     }
-
-  }, [user,token,navigate,from, loading]);
+  }, [user, token, navigate, from, loading]);
 
   // ------ ERROR HANDALING ------
   useEffect(() => {
@@ -65,7 +64,7 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     setEmail(data.email);
-    
+
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
     await sendEmailVerification();
@@ -75,17 +74,23 @@ const Signup = () => {
     signInWithGoogle();
   };
   return (
-    <div className="h-screen items-center flex justify-center">
-      <div class="card  flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl bg-base-200">
-        <div class="card-body">
+    <motion.div
+      initial={{ width: 0 }}
+      animate={{ width: "100%" }}
+      exit={{ x: window.innerWidth }}
+      transition={{ duration: 0.2 }}
+      className="h-screen items-center flex justify-center"
+    >
+      <div className="card  flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl bg-base-200">
+        <div className="card-body">
           <h3 className="text-center text-3xl font-bold">Sign Up</h3>
           {/* ------------------ */}
           {error && (
-            <div class="alert mt-4 alert-error shadow-lg">
+            <div className="alert mt-4 alert-error shadow-lg">
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="stroke-current flex-shrink-0 h-6 w-6"
+                  className="stroke-current flex-shrink-0 h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -102,15 +107,15 @@ const Signup = () => {
           )}
           {/* ---------------- */}
           <form onSubmit={handleSubmit(onSubmit)} className="">
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Name</span>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
               </label>
               <input
                 type="name"
                 name="name"
                 placeholder="Name"
-                class="input input-bordered"
+                className="input input-bordered"
                 {...register("name", { required: true })}
               />
               {errors?.name?.type === "required" && (
@@ -118,30 +123,30 @@ const Signup = () => {
               )}
             </div>
 
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Email</span>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
               </label>
               <input
                 type="email"
                 name="email"
                 placeholder="email"
-                class="input input-bordered"
+                className="input input-bordered"
                 {...register("email", { required: true })}
               />
               {errors?.email?.type === "required" && (
                 <span className="text-red-700 m-1">Email is required</span>
               )}
             </div>
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Password</span>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
               </label>
               <input
                 type="password"
                 placeholder="password"
                 name="email"
-                class="input input-bordered"
+                className="input input-bordered"
                 {...register("password", {
                   required: {
                     value: true,
@@ -163,15 +168,15 @@ const Signup = () => {
               )}
 
               {gError && (
-                <label class="label">
-                  <span class="label-text-alt link link-hover">
+                <label className="label">
+                  <span className="label-text-alt link link-hover">
                     Forgot password?
                   </span>
                 </label>
               )}
             </div>
 
-            <button type="submit" class="btn mt-5 w-full btn-primary">
+            <button type="submit" className="btn mt-5 w-full btn-primary">
               Login
             </button>
             <p>
@@ -184,13 +189,13 @@ const Signup = () => {
           <div className="divider">OR</div>
           <button
             onClick={handleGoogle}
-            class="btn btn-success hover:btn-accent"
+            className="btn btn-success hover:btn-accent"
           >
             Continue With Google
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

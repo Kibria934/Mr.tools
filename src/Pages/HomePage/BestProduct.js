@@ -11,6 +11,7 @@ const BestProduct = () => {
         setBest(data);
       });
   }, []);
+
   return (
     <div className="mx-auto lg:mt-24 mt-8 lg:w-9/12">
       <h3 className="text-4xl text-center mb-3 lg:mb-2 text-primary ">
@@ -20,16 +21,17 @@ const BestProduct = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
         {best?.slice(5, 9).map((b) => (
           <div
+            key={b._id}
             onClick={() => navigate(`/purchase/${b._id}`)}
-            class="card hover:shadow-2xl hover:translate-y-4  mx-auto w-10/12 lg:w-96 bg-base-100 "
+            className="card hover:shadow-2xl hover:translate-y-4  mx-auto w-10/12 lg:w-96 bg-base-100 "
           >
             <figure>
               <img className="" src={b?.img} alt="tools" />
             </figure>
-            <div class="card-body">
-              <h2 class="card-title">
+            <div className="card-body">
+              <h2 className="card-title">
                 {b?.name}
-                <div class="badge badge-secondary">BEST</div>
+                <div className="badge badge-secondary">BEST</div>
               </h2>
             </div>
           </div>

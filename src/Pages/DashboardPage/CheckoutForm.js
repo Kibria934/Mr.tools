@@ -51,43 +51,42 @@ const CheckoutForm = ({ order }) => {
     if (error) {
       setCardErrors(error?.code);
       setSuccess("");
-    }  
-      setProcessing(true);
-      const { paymentIntent, error: intentError } =
-        await stripe.confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: card,
-            billing_details: {
-              name: order.userName,
-              email: order.email,
-            },
+    }
+    setProcessing(true);
+    const { paymentIntent, error: intentError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: order.userName,
+            email: order.email,
           },
-          
-        });
-      if (intentError) {
-        setCardErrors(intentError?.message);
-        setProcessing(false);
-      }
-      setCardErrors("");
-      setTransactionId(paymentIntent.id);
-      setSuccess("Congrats! Your payment is completed.");
-
-      const paidOrder = {
-        order: order._id,
-        transactionId: paymentIntent.id,
-      };
-      fetch(`https://peaceful-ridge-28382.herokuapp.com/order/${order._id}`, {
-        method: 'PATCH',
-        headers: {
-            'content-type': 'application/json',
-            'authorization': `Bearer ${localStorage.getItem('accessToken')}`
         },
-        body: JSON.stringify(paidOrder)
-    }).then(res=>res.json())
-    .then(data => {
-        setProcessing(false);
+      });
+    if (intentError) {
+      setCardErrors(intentError?.message);
+      setProcessing(false);
+    }
+    setCardErrors("");
+    setTransactionId(paymentIntent.id);
+    setSuccess("Congrats! Your payment is completed.");
+
+    const paidOrder = {
+      order: order._id,
+      transactionId: paymentIntent.id,
+    };
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/order/${order._id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(paidOrder),
     })
-    
+      .then((res) => res.json())
+      .then((data) => {
+        setProcessing(false);
+      });
   };
   return (
     <form className="p-8" onSubmit={handleSubmit}>

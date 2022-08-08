@@ -58,64 +58,64 @@ const AddProduct = () => {
     <div>
       <h3 className="text-4xl text-center mb-3">Add New Products</h3>
 
-      <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-        <form onSubmit={handleSubmit(onSubmit)} class="card-body">
-          <div class="form-control">
+      <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+          <div className="form-control">
             <input
               type="text"
               placeholder="Product Name"
               name="Name"
-              class="input my-2 input-bordered"
+              className="input my-2 input-bordered"
               {...register("name", { required: true })}
             />
           </div>
-          <div class="form-control">
+          <div className="form-control">
             <input
               type="number"
               placeholder="Product Price"
               name="price"
-              class="input my-2 input-bordered"
+              className="input my-2 input-bordered"
               {...register("price", { required: true })}
             />
           </div>
-          <div class="form-control">
+          <div className="form-control">
             <input
               type="number"
               placeholder="Minimum Order Quantity"
               name="minOrQuantity"
-              class="input my-2 input-bordered"
+              className="input my-2 input-bordered"
               {...register("minOrQuantity", { required: true })}
             />
           </div>
-          <div class="form-control">
+          <div className="form-control">
             <input
               type="number"
               placeholder="Available Quantity"
               name="availableQuantity"
-              class="input my-2 input-bordered"
+              className="input my-2 input-bordered"
               {...register("availableQuantity", { required: true })}
             />
           </div>
-          <div class="form-control">
+          <div className="form-control">
             <input
               type="file"
               placeholder="Minimum Order Quantity"
               name="image"
-              class="input my-2 input-bordered"
+              className="input my-2 input-bordered"
               {...register("image", { required: true })}
             />
           </div>
-          <div class="form-control">
+          <div className="form-control">
             <textarea
               type="text"
               placeholder="Description of products..."
               name="desc"
-              class="input h-20 my-2 input-bordered"
+              className="input h-20 my-2 input-bordered"
               {...register("desc", { required: true })}
             />
           </div>
-          <div class="form-control mt-6">
-            <input class="btn btn-primary" type="submit" value={"save"} />
+          <div className="form-control mt-6">
+            <input className="btn btn-primary" type="submit" value={"save"} />
           </div>
         </form>
       </div>

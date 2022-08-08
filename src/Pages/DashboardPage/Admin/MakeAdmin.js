@@ -10,7 +10,9 @@ const MakeAdmin = () => {
     refetch,
     data: user,
   } = useQuery("user", () =>
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/user`).then((res) => res.json())
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/user`).then((res) =>
+      res.json()
+    )
   );
   if (isLoading) {
     <Loading></Loading>;
@@ -38,8 +40,8 @@ const MakeAdmin = () => {
   };
 
   return (
-    <div class="overflow-x-auto">
-      <table class="table w-sm lg:min-w-[700px]">
+    <div className="overflow-x-auto">
+      <table className="table w-sm lg:min-w-[700px]">
         <thead>
           <tr>
             <th></th>
@@ -62,11 +64,9 @@ const MakeAdmin = () => {
                     Make Admin
                   </button>
                 )}
-                {u.rol==='admin' && <span
-                  className=" lg:ml-2 text-primary"
-                >
-                  Admin
-                </span>}
+                {u.rol === "admin" && (
+                  <span className=" lg:ml-2 text-primary">Admin</span>
+                )}
               </td>
             </tr>
           ))}

@@ -23,21 +23,17 @@ const ManageProducts = () => {
       </h3>
       <div className="grid grid-cols-1 h-full ml-10 lg:grid-cols-4 lg:float-right gap-16 lg:w-10/12">
         {tools?.map((t) => (
-          <div class="card w-64 bg-base-100 shadow-xl">
-            <figure>
-              <img className=" h-52" src={t?.img} alt="Shoes" />
-            </figure>
-            <div class="card-body">
-              <h2 class="card-title">{t?.name}</h2>
+          <div key={t._id} className="card w-64 bg-base-100 shadow-xl">
+            <div className="card-body">
+              <h2 className="card-title">{t?.name}</h2>
               <span className="my-0">Price:{t?.price}</span>
               <span className="my-0">
                 Available Stock:{t?.availableQuantity}
               </span>
               <span className="my-0">Minimun Quantity:{t?.minOrQuantity}</span>
-              <span className="my-0">{t?.desc}</span>
-              <div class="card-actions justify-end">
+              <div className="card-actions justify-end">
                 <label
-                  for="my-modal"
+                  htmlFor="my-modal"
                   onClick={() => setConfirmId(t._id)}
                   className="btn modal-button btn-primary"
                   type=""

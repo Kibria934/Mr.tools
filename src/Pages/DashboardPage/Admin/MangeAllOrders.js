@@ -55,8 +55,8 @@ const MangeAllOrders = () => {
       <h1 className="text-center text-3xl mb-10 font-bold text-primary my-8">
         MANAGE ALL ORDER
       </h1>
-      <div class="overflow-x-auto  w-96 mx-auto mt-[-30px] lg:mr-20 lg:w-[70%]">
-        <table class="table mx-auto  lg:w-full">
+      <div className="overflow-x-auto  w-96 mx-auto mt-[-30px] lg:mr-20 lg:w-[70%]">
+        <table className="table mx-auto  lg:w-full">
           {/* <!-- head --> */}
           <thead>
             <tr>
@@ -71,70 +71,71 @@ const MangeAllOrders = () => {
           </thead>
           <tbody>
             {orders?.map((o, index) => (
-              <tr>
-                <th>{index + 1}</th>
-                <td>
-                  <div class="flex items-center space-x-3">
-                    <div>
-                      <div class="font-bold">{o.userName}</div>
-                    </div>
-                  </div>
-                </td>
-                <td>{o.email}</td>
-
-                {o.totalPrice && o.paid && o.status !== "shiped" && (
-                  <div class="indicator">
-                    <span class="indicator-item badge badge-primary">
-                      Panding..
-                    </span>
-                    <span class="grid min-w-28  p-3  bg-base-200 place-items-center">
-                      {o.productName}
-                    </span>
-                  </div>
-                )}
-                {o.totalPrice && o.paid && o.status === "shiped" && (
+              <tr key={o._id}>
+                <>
+                  {" "}
+                  <th>{index + 1}</th>
                   <td>
-                    <div class="indicator">
-                      <span class="indicator-item badge badge-primary">
-                        Shipped
+                    <div className="flex items-center space-x-3">
+                      <div>
+                        <div className="font-bold">{o.userName}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{o.email}</td>
+                  {o?.totalPrice && o.paid && o.status !== "shiped" && (
+                    <div className="indicator">
+                      <span className="indicator-item badge badge-primary">
+                        Panding..
                       </span>
-                      <span class="grid w-full p-3  bg-base-200 place-items-center">
+                      <span className="grid min-w-28  p-3  bg-base-200 place-items-center">
                         {o.productName}
                       </span>
                     </div>
-                  </td>
-                )}
-                {!o.paid && o.status !== "shiped" && <td>{o.productName}</td>}
-
-                <td className="text-xl font-semibold">$ {o.totalPrice}</td>
-                <td>
-                  {o.orderQuantity}
-                  <small>Pc</small>
-                </td>
-                <td className="text-center">
-                  {o.totalPrice && !o.paid && (
-                    <>
-                      <button className="text-xl text-primary font-semibold">
-                        Unpaid
-                      </button>
-                    </>
-                  )}
-                  {o.totalPrice && o.paid && o.status !== "shiped" && (
-                    <div>
-                      <button
-                        onClick={() => handleShip(o._id)}
-                        className="btn btn-primary btn-sm"
-                      >
-                        Shipe
-                      </button>
-                    </div>
                   )}
                   {o.totalPrice && o.paid && o.status === "shiped" && (
-                    <div>
-                      <button className="text-xl text-primary">Shiped</button>
-                    </div>
+                    <td>
+                      <div className="indicator">
+                        <span className="indicator-item badge badge-primary">
+                          Shipped
+                        </span>
+                        <span className="grid w-full p-3  bg-base-200 place-items-center">
+                          {o.productName}
+                        </span>
+                      </div>
+                    </td>
                   )}
-                </td>
+                  {!o.paid && o.status !== "shiped" && <td>{o.productName}</td>}
+                  <td className="text-xl font-semibold">$ {o.totalPrice}</td>
+                  <td>
+                    {o.orderQuantity}
+                    <small>Pc</small>
+                  </td>
+                  <td className="text-center">
+                    {o.totalPrice && !o.paid && (
+                      <>
+                        <button className="text-xl text-primary font-semibold">
+                          Unpaid
+                        </button>
+                      </>
+                    )}
+                    {o.totalPrice && o.paid && o.status !== "shiped" && (
+                      <div>
+                        <button
+                          onClick={() => handleShip(o._id)}
+                          className="btn btn-primary btn-sm"
+                        >
+                          Shipe
+                        </button>
+                      </div>
+                    )}
+                    {o.totalPrice && o.paid && o.status === "shiped" && (
+                      <div>
+                        <button className="text-xl text-primary">Shiped</button>
+                      </div>
+                    )}
+                  </td>
+                </>
               </tr>
             ))}
           </tbody>

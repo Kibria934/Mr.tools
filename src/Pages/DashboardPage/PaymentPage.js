@@ -31,9 +31,11 @@ const PaymentPage = () => {
   }
   return (
     <>
-      <div class="card w-sm lg:w-2/5 bg-green-100 shadow-xl">
-        <div class="card-body w-full">
-          <h2 class="card-title text-3xl font-bold">Hello {order?.userName}</h2>
+      <div className="card w-sm lg:w-2/5 bg-green-100 shadow-xl">
+        <div className="card-body w-full">
+          <h2 className="card-title text-3xl font-bold">
+            Hello {order?.userName}
+          </h2>
           <p className="text-xl ">
             Your have chosen{" "}
             <span className="text-orange-700 font-semibold text-2xl">
@@ -57,7 +59,7 @@ const PaymentPage = () => {
         </div>
       </div>
 
-      <div class="card mt-10 w-96 lg:w-2/5 bg-red-50 shadow-xl">
+      <div className="card mt-10 w-96 lg:w-2/5 bg-red-50 shadow-xl">
         <Elements stripe={stripePromise}>
           <CheckoutForm order={order} />
         </Elements>

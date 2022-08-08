@@ -20,12 +20,14 @@ const PurchaseModal = ({ tools, setTools, user, totalQuantity }) => {
       availableQuantity: +availableQuantity,
     };
 
-    axios.post(`https://peaceful-ridge-28382.herokuapp.com/post-order`, orders).then((data) => {
-      if (data.status === 200) {
-        toast.success(`You have successfully booked ${name}`);
-      }
-      setTools(null);
-    });
+    axios
+      .post(`https://peaceful-ridge-28382.herokuapp.com/post-order`, orders)
+      .then((data) => {
+        if (data.status === 200) {
+          toast.success(`You have successfully booked ${name}`);
+        }
+        setTools(null);
+      });
   };
   return (
     <div>

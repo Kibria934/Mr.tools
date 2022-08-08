@@ -13,11 +13,16 @@ const MyOrder = () => {
   const [user, loading, Autherror] = useAuthState(auth);
   const [modal, setModal] = useState(false);
   const [confirmId, setConfirmId] = useState(null);
-  const [orders, setOrders] = useState([]);
+  // const [orders, setOrders] = useState([]);
 
   const navigate = useNavigate();
 
-  const { isLoading, error, refetch } = useQuery("orders", () =>
+  const {
+    isLoading,
+    error,
+    refetch,
+    data: orders,
+  } = useQuery("orders", () =>
     fetch(
       `https://peaceful-ridge-28382.herokuapp.com/get-order?email=${user.email}`,
       {
@@ -25,109 +30,108 @@ const MyOrder = () => {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }
-    )
-      .then((res) => {
-        if (res.status === 401 || res.status === 403) {
-          signOut(auth);
-          localStorage.removeItem("accessToken");
-          navigate("/");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setOrders(data);
-      })
+    ).then((res) => {
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("accessToken");
+        navigate("/");
+      }
+      return res.json();
+    })
   );
-
-  if (isLoading) {
-    <Loading />;
-  }
 
   return (
     <>
       <h1 className="text-center text-3xl  font-bold text-primary my-8">
         MY ORDERS
       </h1>
-      <div class="overflow-x-auto  w-96 mx-auto mt-[-30px] lg:mr-20 lg:w-[70%]">
-        <table class="table mx-auto  lg:w-full">
-          {/* <!-- head --> */}
-          <thead>
-            <tr>
-              <th></th>
-              <th>Customer Name</th>
-              <th>Email</th>
-              <th>Order</th>
-              <th>Total Price</th>
-              <th>Order Quantity</th>
-              <th className="text-center">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders?.map((o, index) => (
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="overflow-x-auto  w-96 mx-auto mt-[-30px] lg:mr-20 lg:w-[70%]">
+          <table className="table mx-auto  lg:w-full">
+            {/* <!-- head --> */}
+            <thead>
               <tr>
-                <th>{index + 1}</th>
-                <td>
-                  <div class="flex items-center space-x-3">
-                    <div>
-                      <div class="font-bold">{o.userName}</div>
-                    </div>
-                  </div>
-                </td>
-                <td>{o.email}</td>
-                <td>{o.productName}</td>
-                <td className="text-xl font-semibold">$ {o.totalPrice}</td>
-                <td>
-                  {o.orderQuantity}
-                  <small>Pc</small>
-                </td>
-                <td className="text-center">
-                  {o.totalPrice && !o.paid && (
-                    <>
-                      <Link to={`/dashboard/payment/${o._id}`}>
-                        <button className="btn btn-sm btn-success">pay</button>
-                      </Link>
-                      <label
-                        for="my-modal"
-                        onClick={() => setConfirmId(o._id)}
-                        className="btn modal-button btn-sm ml-4"
-                        type=""
-                      >
-                        Cancel
-                      </label>
-                    </>
-                  )}
-                  {o.totalPrice && o.paid && (
-                    <div>
-                      <p>
-                        <span className="text-success">Paid</span>
-                      </p>
-                      <p>
-                        Transaction id:{" "}
-                        <span className="text-success">{o.transactionId}</span>
-                      </p>
-                    </div>
-                  )}
-                </td>
+                <th></th>
+                <th>Customer Name</th>
+                <th>Email</th>
+                <th>Order</th>
+                <th>Total Price</th>
+                <th>Order Quantity</th>
+                <th className="text-center">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {/* ============ modal =========== */}
-        {/* <!-- The button to open modal --> */}
-        {/* <label for="my-modal" class="btn modal-button">open modal</label> */}
+            </thead>
+            {confirmId && (
+              <Modal
+                confirmId={confirmId}
+                setConfirmId={setConfirmId}
+                refetch={refetch}
+              >
+                order
+              </Modal>
+            )}
+            <tbody>
+              {orders?.map((o, index) => (
+                <tr key={o._id}>
+                  <th>{index + 1}</th>
+                  <td>
+                    <div className="flex items-center space-x-3">
+                      <div>
+                        <div className="font-bold">{o.userName}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{o.email}</td>
+                  <td>{o.productName}</td>
+                  <td className="text-xl font-semibold">$ {o.totalPrice}</td>
+                  <td>
+                    {o.orderQuantity}
+                    <small>Pc</small>
+                  </td>
+                  <td className="text-center">
+                    {o.totalPrice && !o.paid && (
+                      <>
+                        <Link to={`/dashboard/payment/${o._id}`}>
+                          <button className="btn btn-sm btn-success">
+                            pay
+                          </button>
+                        </Link>
+                        <label
+                          for="my-modal"
+                          onClick={() => setConfirmId(o._id)}
+                          className="btn modal-button btn-sm ml-4"
+                          type=""
+                        >
+                          Cancel
+                        </label>
+                      </>
+                    )}
+                    {o.totalPrice && o.paid && (
+                      <div>
+                        <p>
+                          <span className="text-success">Paid</span>
+                        </p>
+                        <p>
+                          Transaction id:{" "}
+                          <span className="text-success">
+                            {o.transactionId}
+                          </span>
+                        </p>
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {/* ============ modal =========== */}
+          {/* <!-- The button to open modal --> */}
+          {/* <label for="my-modal" className="btn modal-button">open modal</label> */}
 
-        {/* <!-- Put this part before </body> tag --> */}
-
-        {confirmId && (
-          <Modal
-            confirmId={confirmId}
-            setConfirmId={setConfirmId}
-            refetch={refetch}
-          >
-            order
-          </Modal>
-        )}
-      </div>
+          {/* <!-- Put this part before </body> tag --> */}
+        </div>
+      )}
     </>
   );
 };

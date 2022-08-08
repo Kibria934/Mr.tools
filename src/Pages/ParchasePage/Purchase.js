@@ -19,7 +19,9 @@ const Purchase = () => {
     refetch,
     data: singleData,
   } = useQuery("singleData", () =>
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-tools/${id}`).then((res) => res.json())
+    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-tools/${id}`).then(
+      (res) => res.json()
+    )
   );
   const num = singleData?.minOrQuantity;
   const [tools, setTools] = useState(null);
@@ -28,20 +30,17 @@ const Purchase = () => {
 
   useEffect(() => {
     setCount(num);
-    refetch()
-    
-  } ,[singleData]);
+    refetch();
+  }, [singleData]);
 
-
-
-  if(loading||isLoading){
-    <Loading/>
+  if (loading || isLoading) {
+    <Loading />;
   }
   const handleIncrease = (e) => {
-      setCount(+count + 1);
-      if(count > singleData?.availableQuantity ){
-      return toast.error('We have no enough stock')
-      }
+    setCount(+count + 1);
+    if (count > singleData?.availableQuantity) {
+      return toast.error("We have no enough stock");
+    }
   };
 
   const handleDicrease = (e) => {
@@ -57,9 +56,14 @@ const Purchase = () => {
   return (
     <div className="p-16 bg-emerald-100 lg:p-0">
       <div>
-        <div class="card mt-20 w-full ">
+        <div className="card mt-20 w-full ">
           <figure>
-            <img width={"800px"} className="max-h-[50vh]" src={singleData?.img} alt="product" />
+            <img
+              width={"800px"}
+              className="max-h-[50vh]"
+              src={singleData?.img}
+              alt="product"
+            />
           </figure>
           <div className="mt-8 mx-auto max-w-[60vw]">
             <div>
@@ -77,7 +81,7 @@ const Purchase = () => {
                         type=""
                         onClick={handleDicrease}
                       >
-                      -
+                        -
                       </button>
                     </div>
                     <p className="text-2xl mx-5 mt-2 font-bold ">{count}</p>
@@ -87,10 +91,9 @@ const Purchase = () => {
                         title="Add more products"
                         className={`btn btn-outline btn-secondary`}
                         type=""
-                        
                         onClick={handleIncrease}
                       >
-                       +
+                        +
                       </button>
                     </div>
                     <div>
@@ -102,19 +105,20 @@ const Purchase = () => {
                         onChange={(e) => {
                           const value = e.target.value;
                           setCount(+value);
-                          refetch()
+                          refetch();
                         }}
                       />
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
             <div className=" flex mt-10 text-lg text-primary flex-col justify-around ">
               <div className="">
                 <h2 className="text-4xl">{singleData?.name}</h2>
-                <h2 className="text-2xl mt-2">Price: {singleData?.price} <small>pc</small></h2>
+                <h2 className="text-2xl mt-2">
+                  Price: {singleData?.price} <small>pc</small>
+                </h2>
                 <h3 className="text-2xl">
                   Available Stock: {singleData?.availableQuantity}
                 </h3>
