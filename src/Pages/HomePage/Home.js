@@ -16,7 +16,6 @@ const Home = () => {
   return (
     <Suspense fallback={<Loading />}>
       <motion.div
-        className=""
         initial={{ width: 0 }}
         animate={{ width: "100%" }}
         exit={{ x: window.innerWidth }}

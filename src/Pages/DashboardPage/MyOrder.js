@@ -39,7 +39,9 @@ const MyOrder = () => {
       return res.json();
     })
   );
-
+  if (isLoading) {
+    <Loading />;
+  }
   return (
     <>
       <h1 className="text-center text-3xl  font-bold text-primary my-8">

@@ -8,6 +8,7 @@ import Loading from "./SharedPage/Loading";
 import React, { Suspense } from "react";
 import { AnimatePresence } from "framer-motion";
 
+const Inventory = React.lazy(() => import("./Pages/HomePage/Inventory"));
 const PaymentPage = React.lazy(() =>
   import("./Pages/DashboardPage/PaymentPage")
 );
@@ -36,8 +37,6 @@ const Blogs = React.lazy(() => import("./Pages/BlogPage/Blogs"));
 const Signup = React.lazy(() => import("./Auth/Signup"));
 const Login = React.lazy(() => import("./Auth/Login"));
 
-// const Tools = React.lazy(() => import("./Tools"));
-
 function App() {
   const [user, loading, Autherror] = useAuthState(auth);
   console.log(loading);
@@ -54,7 +53,7 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/portfolio" element={<Portfolio />}></Route>
-            {/* <Route path="/tools" element={<Tools />}></Route> */}
+            <Route path="/inventory" element={<Inventory />}></Route>
             <Route path="/blogs" element={<Blogs />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>

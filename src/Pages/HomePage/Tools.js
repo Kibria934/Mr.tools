@@ -1,15 +1,13 @@
 import React, { Fragment } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import UseTools from "../../Hook/UseTools";
 import Loading from "../../SharedPage/Loading";
 import "./Tools.css";
 
 const Tools = () => {
-  const { isLoading, data: tools } = useQuery(["repoData"], () =>
-    fetch("https://peaceful-ridge-28382.herokuapp.com/get-tools").then((res) =>
-      res.json()
-    )
-  );
+  const { isLoading, tools } = UseTools();
+
   if (isLoading) {
     return <Loading />;
   }

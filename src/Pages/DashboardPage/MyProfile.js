@@ -78,8 +78,8 @@ const MyProfile = () => {
 
   return (
     <div>
-      <div className="hero lg:min-w-[1300px] min-h-full lg:ml-28 my-20">
-        <div className="hero-content min-w-full bg-base-200  flex-col ">
+      <div className="hero lg:min-w-[1300px] min-h-full lg:ml-28  my-20">
+        <div className="hero-content mt-28 min-w-full bg-base-200  flex-col ">
           <img
             src={man}
             className="max-w-xs mt-[-200px] border-emerald-200 border-2 rounded-full shadow-2xl"
