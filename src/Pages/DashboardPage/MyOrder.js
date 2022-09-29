@@ -23,14 +23,11 @@ const MyOrder = () => {
     refetch,
     data: orders,
   } = useQuery("orders", () =>
-    fetch(
-      `https://peaceful-ridge-28382.herokuapp.com/get-order?email=${user.email}`,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    ).then((res) => {
+    fetch(`https://mr-tools-server.vercel.app/get-order?email=${user.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((res) => {
       if (res.status === 401 || res.status === 403) {
         signOut(auth);
         localStorage.removeItem("accessToken");

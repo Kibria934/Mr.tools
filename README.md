@@ -6,7 +6,7 @@
 
 #### Server Code Link:(https://github.com/programming-hero-web-course1/manufacturer-website-server-side-Kibria934)
 
-#### Server Website Link:(https://peaceful-ridge-28382.herokuapp.com/)
+#### Server Website Link:(https://mr-tools-server.vercel.app/)
 
 ## Used Technology in this project:
 

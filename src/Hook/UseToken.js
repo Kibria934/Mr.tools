@@ -7,7 +7,7 @@ const UseToken = (user) => {
       const email = user?.user?.email;
       const currentUser = { email: email };
 
-      fetch(`https://peaceful-ridge-28382.herokuapp.com/user/${email}`, {
+      fetch(`https://mr-tools-server.vercel.app/user/${email}`, {
         method: "PUT",
         Headers: {
           "content-type": "application/json",
@@ -28,3 +28,5 @@ const UseToken = (user) => {
 };
 
 export default UseToken;
+
+// https://mr-tools-server.vercel.app/

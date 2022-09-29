@@ -10,16 +10,14 @@ const MakeAdmin = () => {
     refetch,
     data: user,
   } = useQuery("user", () =>
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/user`).then((res) =>
-      res.json()
-    )
+    fetch(`https://mr-tools-server.vercel.app/user`).then((res) => res.json())
   );
   if (isLoading) {
     <Loading></Loading>;
   }
 
   const handleAdmin = (email) => {
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/admin/${email}`, {
+    fetch(`https://mr-tools-server.vercel.app/admin/${email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

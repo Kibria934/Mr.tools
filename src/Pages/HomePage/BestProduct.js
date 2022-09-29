@@ -5,7 +5,7 @@ const BestProduct = () => {
   const navigate = useNavigate();
   const [best, setBest] = useState([]);
   useEffect(() => {
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-tools`)
+    fetch(`https://mr-tools-server.vercel.app/get-tools`)
       .then((res) => res.json())
       .then((data) => {
         setBest(data);

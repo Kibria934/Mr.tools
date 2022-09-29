@@ -18,7 +18,7 @@ const MyProfile = () => {
     refetch,
   } = useQuery("userInfo", () =>
     fetch(
-      `https://peaceful-ridge-28382.herokuapp.com/userProfile?email=${user?.email}`,
+      `https://mr-tools-server.vercel.app/userProfile?email=${user?.email}`,
       {
         method: "GET",
         headers: {
@@ -47,7 +47,7 @@ const MyProfile = () => {
       about: data.about,
     };
     fetch(
-      `https://peaceful-ridge-28382.herokuapp.com/userProfile?email=${user.email}`,
+      `https://mr-tools-server.vercel.app/userProfile?email=${user.email}`,
       {
         method: "PUT",
         headers: {

@@ -14,7 +14,7 @@ const CheckoutForm = ({ order }) => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    fetch("https://peaceful-ridge-28382.herokuapp.com/create-payment-intent", {
+    fetch("https://mr-tools-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -75,7 +75,7 @@ const CheckoutForm = ({ order }) => {
       order: order._id,
       transactionId: paymentIntent.id,
     };
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/order/${order._id}`, {
+    fetch(`https://mr-tools-server.vercel.app/order/${order._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

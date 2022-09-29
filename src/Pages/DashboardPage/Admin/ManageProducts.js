@@ -7,7 +7,7 @@ const ManageProducts = () => {
   const [tools, setTools] = useState([]);
   const [confirmId, setConfirmId] = useState(null);
   const { data, isLoading, refetch } = useQuery("tools", () =>
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-tools`)
+    fetch(`https://mr-tools-server.vercel.app/get-tools`)
       .then((res) => res.json())
       .then((data) => setTools(data))
   );

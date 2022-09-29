@@ -10,7 +10,7 @@ const Reviews = () => {
   const [review, setReview] = useState([]);
 
   useEffect(() => {
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-review`)
+    fetch(`https://mr-tools-server.vercel.app/get-review`)
       .then((res) => res.json())
       .then((data) => {
         setReview(data);

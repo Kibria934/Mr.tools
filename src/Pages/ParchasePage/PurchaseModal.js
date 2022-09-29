@@ -21,7 +21,7 @@ const PurchaseModal = ({ tools, setTools, user, totalQuantity }) => {
     };
 
     axios
-      .post(`https://peaceful-ridge-28382.herokuapp.com/post-order`, orders)
+      .post(`https://mr-tools-server.vercel.app/post-order`, orders)
       .then((data) => {
         if (data.status === 200) {
           toast.success(`You have successfully booked ${name}`);

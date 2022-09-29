@@ -17,7 +17,7 @@ const MangeAllOrders = () => {
     error,
     refetch,
   } = useQuery("orders", () =>
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-allOrder`, {
+    fetch(`https://mr-tools-server.vercel.app/get-allOrder`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -36,7 +36,7 @@ const MangeAllOrders = () => {
   }
 
   const handleShip = (id) => {
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/update-allOrder/${id}`, {
+    fetch(`https://mr-tools-server.vercel.app/update-allOrder/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

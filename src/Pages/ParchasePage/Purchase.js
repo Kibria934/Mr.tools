@@ -19,8 +19,8 @@ const Purchase = () => {
     refetch,
     data: singleData,
   } = useQuery("singleData", () =>
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-tools/${id}`).then(
-      (res) => res.json()
+    fetch(`https://mr-tools-server.vercel.app/get-tools/${id}`).then((res) =>
+      res.json()
     )
   );
   const num = singleData?.minOrQuantity;

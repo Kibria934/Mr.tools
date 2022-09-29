@@ -39,7 +39,6 @@ const Login = React.lazy(() => import("./Auth/Login"));
 
 function App() {
   const [user, loading, Autherror] = useAuthState(auth);
-  console.log(loading);
 
   const location = useLocation();
   return (

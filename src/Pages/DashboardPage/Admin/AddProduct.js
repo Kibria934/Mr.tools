@@ -32,7 +32,7 @@ const AddProduct = () => {
             minOrQuantity: data.minOrQuantity,
             price: data.price,
           };
-          fetch("https://peaceful-ridge-28382.herokuapp.com/post-tools", {
+          fetch("https://mr-tools-server.vercel.app/post-tools", {
             method: "POST",
             headers: {
               "content-type": "application/json",

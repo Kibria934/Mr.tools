@@ -63,4 +63,4 @@ const Tools = () => {
 };
 
 export default Tools;
-// https://peaceful-ridge-28382.herokuapp.com/get-tools
+// https://mr-tools-server.vercel.app/get-tools

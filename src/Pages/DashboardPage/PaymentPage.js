@@ -19,7 +19,7 @@ const PaymentPage = () => {
   const { id } = useParams();
 
   const { data: order, isLoading } = useQuery(["order", id], () =>
-    fetch(`https://peaceful-ridge-28382.herokuapp.com/get-order/${id}`, {
+    fetch(`https://mr-tools-server.vercel.app/get-order/${id}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
